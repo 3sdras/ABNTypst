@@ -296,11 +296,9 @@ O arquivo `abnt.csl` foi adaptado do projeto [csl-abnt](https://github.com/virgi
 
 ## Créditos e Agradecimentos
 
-### Inspiração
+Este projeto é quase um fork do **[abnTeX2](https://github.com/abntex/abntex2)**, o pacote LaTeX para formatação de documentos conforme normas ABNT, mantido por Lauro César Araujo e a equipe abnTeX2.
 
-Este projeto foi inspirado no **[abnTeX2](https://github.com/abntex/abntex2)**, o pacote LaTeX para formatação de documentos conforme normas ABNT, mantido por Lauro César Araujo e a equipe abnTeX2.
-
-A estrutura de documentação, os modelos canônicos de exemplos, e várias decisões de design foram influenciadas pelo excelente trabalho do abnTeX2, que há mais de uma década auxilia a comunidade acadêmica brasileira na produção de documentos em conformidade com as normas ABNT.
+A estrutura de documentação, os modelos canônicos de exemplos, e várias decisões de design são simples "ports" do excelente trabalho do abnTeX2, que há mais de uma década auxilia a comunidade acadêmica brasileira na produção de documentos em conformidade com as normas ABNT.
 
 Agradecemos especialmente:
 
