@@ -13,6 +13,9 @@
 *.swo
 *~
 
+# Documentação antiga
+docs/introducao-abntypst-COMPLETO-ANTIGO.typ
+
 # Temporary files
 *.tmp
 *.bak
