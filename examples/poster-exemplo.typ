@@ -1,7 +1,7 @@
 // Exemplo de Pôster Técnico e Científico conforme NBR 15437:2006
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template poster do ABNTypst para criar
+// Este exemplo demonstra o uso do template poster do ABNTyp para criar
 // pôsteres científicos em conformidade com a NBR 15437:2006.
 //
 // Elementos demonstrados:

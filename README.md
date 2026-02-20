@@ -1,17 +1,17 @@
-# ABNTypst
+# ABNTyp
 
-**ABNTypst Biblioteca Normativa Typst** — Formatação de documentos técnicos e científicos brasileiros conforme normas ABNT para [Typst](https://typst.app).
+**ABNTyp Biblioteca Normativa Typst** — Formatação de documentos técnicos e científicos brasileiros conforme normas ABNT para [Typst](https://typst.app).
 
 ---
 
 ## Sobre o Projeto
 
-O **ABNTypst** é um pacote Typst para formatação de documentos acadêmicos e técnicos em conformidade com as normas da ABNT (Associação Brasileira de Normas Técnicas).
+O **ABNTyp** é um pacote Typst para formatação de documentos acadêmicos e técnicos em conformidade com as normas da ABNT (Associação Brasileira de Normas Técnicas).
 
 Este projeto está sendo escrito via Claude Code a partir das minhas orientações, fruto da experiência que tive com LaTeX, que começou na USP de São Carlos em 2000, por influência
 principalmente do Prof. Dr. Sadao Massago. Também neste período e local pude conhecer o Prof. Dr. Miguel Vinicius Santini Frasson, um dos criadores do abnTeX original, bem como o famoso texto "Uma introdução ao LaTeX 2e" do Prof. Dr. Lenimar Nunes Andrade. Anos mais tarde, tive contato com o excelente abnTeX2, do Prof. Dr. Lauro César Araujo. Todo o mérito deste projeto, portanto, deve ir para as pessoas e projetos citados acima, bem como criadores e comunidades do LaTeX e do Typst.
 
-O objetivo aqui é adaptar os trabalhos feitos em "Uma introdução ao LaTeX 2e" e no projeto abnTeX2 para o caso do Typst, para servir como base na disciplina "Software Livre para Edição de Textos Matemáticos" em 2026 (Núcleo Livre).
+O objetivo aqui é adaptar o projeto abnTeX2 para o caso do Typst, para servir como base na disciplina "Software Livre para Edição de Textos Matemáticos" em 2026 (Núcleo Livre). A parte de matemática, caixas decorativas e ambientes de teoremas — adaptada do trabalho do Prof. Lenimar — está no pacote companheiro **[FerrMat](https://github.com/3sdras/ferrmat)**.
 
 ---
 
@@ -20,24 +20,24 @@ O objetivo aqui é adaptar os trabalhos feitos em "Uma introdução ao LaTeX 2e"
 ### Via Typst Universe (recomendado)
 
 ```typst
-#import "@preview/abntypst:0.1.0": *
+#import "@preview/abntyp:0.1.0": *
 ```
 
 ### Via Clone Local
 
 ```bash
-git clone https://github.com/esdras/abntypst.git
+git clone https://github.com/3sdras/abntyp.git
 ```
 
 ```typst
-#import "caminho/para/abntypst/lib.typ": *
+#import "caminho/para/abntyp/lib.typ": *
 ```
 
 ---
 
 ## Documentação
 
-A documentação do ABNTypst consiste nos seguintes arquivos:
+A documentação do ABNTyp consiste nos seguintes arquivos:
 
 ### Manuais
 
@@ -73,7 +73,7 @@ _\* A ABNT não possui norma específica para slides. O template segue boas prá
 
 ## Normas Implementadas
 
-O ABNTypst implementa as seguintes normas ABNT (versões atualizadas):
+O ABNTyp implementa as seguintes normas ABNT (versões atualizadas):
 
 ### Normas Principais
 
@@ -118,7 +118,7 @@ O ABNTypst implementa as seguintes normas ABNT (versões atualizadas):
 ### Trabalho Acadêmico (Tese/Dissertação/TCC)
 
 ```typst
-#import "@preview/abntypst:0.1.0": *
+#import "@preview/abntyp:0.1.0": *
 
 #show: abntcc.with(
   title: "Uma proposta de pacote para normas ABNT em Typst",
@@ -157,7 +157,7 @@ Texto do desenvolvimento...
 ### Artigo Científico
 
 ```typst
-#import "@preview/abntypst:0.1.0": *
+#import "@preview/abntyp:0.1.0": *
 
 #show: artigo.with(
   title: "Título do Artigo",
@@ -180,7 +180,7 @@ Texto do artigo...
 
 ## Sistemas de Citação
 
-O ABNTypst suporta os dois sistemas de chamada permitidos pela NBR 10520:2023:
+O ABNTyp suporta os dois sistemas de chamada permitidos pela NBR 10520:2023:
 
 ### Sistema Autor-Data (padrão)
 
@@ -205,7 +205,7 @@ O ABNTypst suporta os dois sistemas de chamada permitidos pela NBR 10520:2023:
 O sistema numérico foi implementado inspirado no `abntex2-num.bst` do abnTeX2.
 
 ```typst
-#import "@preview/abntypst:0.1.0": *
+#import "@preview/abntyp:0.1.0": *
 
 #show: citacao-num-config
 
@@ -225,7 +225,7 @@ Outros autores #citar-num-multiplos(("santos2022", "costa2021")) confirmam.
 ## Estrutura de Arquivos
 
 ```
-abntypst/
+abntyp/
 ├── lib.typ                 # Ponto de entrada principal
 ├── README.md               # Este arquivo
 ├── typst.toml              # Metadados do pacote
@@ -329,9 +329,9 @@ Contribuições são bem-vindas! Por favor:
 
 ## Suporte
 
-- **Issues:** https://github.com/esdras/abntypst/issues
-- **Discussões:** https://github.com/esdras/abntypst/discussions
+- **Issues:** https://github.com/3sdras/abntyp/issues
+- **Discussões:** https://github.com/3sdras/abntyp/discussions
 
 ---
 
-_ABNTypst — Documentos técnicos e científicos brasileiros em Typst, compatíveis com as normas ABNT._
+_ABNTyp — Documentos técnicos e científicos brasileiros em Typst, compatíveis com as normas ABNT._

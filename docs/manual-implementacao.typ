@@ -1,9 +1,9 @@
-// Manual de Implementação do ABNTypst
+// Manual de Implementação do ABNTyp
 // Documentação completa do pacote
 
 #set document(
-  title: "Manual de Implementação do ABNTypst",
-  author: "ABNTypst",
+  title: "Manual de Implementação do ABNTyp",
+  author: "ABNTyp",
 )
 
 #set page(
@@ -49,7 +49,7 @@
 // Capa
 #align(center)[
   #v(3cm)
-  #text(size: 24pt, weight: "bold")[ABNTypst]
+  #text(size: 24pt, weight: "bold")[ABNTyp]
 
   #v(1cm)
   #text(size: 14pt)[Formatação de Documentos Acadêmicos]
@@ -78,9 +78,9 @@
 
 = Introdução
 
-O *ABNTypst* (ABNTypst Biblioteca Normativa Typst) é um pacote para o sistema de composição tipográfica Typst que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos.
+O *ABNTyp* (ABNTyp Biblioteca Normativa Typst) é um pacote para o sistema de composição tipográfica Typst que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos.
 
-== Por que usar o ABNTypst?
+== Por que usar o ABNTyp?
 
 - *Simplicidade*: Typst é mais simples que LaTeX, com sintaxe moderna e intuitiva
 - *Velocidade*: Compilação instantânea, ideal para visualização em tempo real
@@ -136,11 +136,11 @@ O pacote implementa as seguintes normas ABNT:
 
 == Instalação Local
 
-Clone ou baixe o repositório e coloque a pasta `abntypst` no seu projeto:
+Clone ou baixe o repositório e coloque a pasta `abntyp` no seu projeto:
 
 ```
 seu-projeto/
-├── abntypst/
+├── abntyp/
 │   ├── lib.typ
 │   └── src/
 │       └── ...
@@ -150,7 +150,7 @@ seu-projeto/
 No seu documento:
 
 ```typst
-#import "abntypst/lib.typ": *
+#import "abntyp/lib.typ": *
 ```
 
 == Instalação como Pacote (futura)
@@ -158,7 +158,7 @@ No seu documento:
 Quando publicado no repositório oficial do Typst:
 
 ```typst
-#import "@preview/abntypst:0.1.0": *
+#import "@preview/abntyp:0.1.0": *
 ```
 
 = Guia Rápido
@@ -166,7 +166,7 @@ Quando publicado no repositório oficial do Typst:
 == Documento Mínimo
 
 ```typst
-#import "abntypst/lib.typ": *
+#import "abntyp/lib.typ": *
 
 #show: abntcc.with(
   titulo: "Uma proposta de pacote para normas ABNT em Typst",
@@ -353,7 +353,7 @@ Define espaçamentos entre linhas e parágrafos.
 
 *Indentação de parágrafos (`all: true`):*
 
-A norma ABNT exige recuo de 1,25cm em _todos_ os parágrafos, inclusive o primeiro após um título. Por padrão, o Typst segue a convenção anglo-saxônica e não indenta o primeiro parágrafo. Os templates do ABNTypst usam `first-line-indent` com `all: true` para corrigir isso:
+A norma ABNT exige recuo de 1,25cm em _todos_ os parágrafos, inclusive o primeiro após um título. Por padrão, o Typst segue a convenção anglo-saxônica e não indenta o primeiro parágrafo. Os templates do ABNTyp usam `first-line-indent` com `all: true` para corrigir isso:
 
 ```typst
 #set par(first-line-indent: (amount: 1.25cm, all: true))
@@ -757,13 +757,13 @@ Cria páginas de resumo conforme NBR 6028.
 #resumo(
   palavras-chave: ("ABNT", "Typst", "Formatação", "Trabalho acadêmico"),
 )[
-  Este trabalho apresenta o desenvolvimento do pacote ABNTypst para formatação de documentos acadêmicos conforme as normas da ABNT, utilizando o sistema de composição tipográfica Typst. O objetivo é fornecer uma alternativa moderna e acessível para a produção de trabalhos acadêmicos no Brasil...
+  Este trabalho apresenta o desenvolvimento do pacote ABNTyp para formatação de documentos acadêmicos conforme as normas da ABNT, utilizando o sistema de composição tipográfica Typst. O objetivo é fornecer uma alternativa moderna e acessível para a produção de trabalhos acadêmicos no Brasil...
 ]
 
 #abstract(
   palavras-chave: ("ABNT", "Typst", "Formatting", "Academic work"),
 )[
-  This work presents the development of the ABNTypst package for formatting academic documents according to ABNT standards, using the Typst typesetting system. The objective is to provide a modern and accessible alternative for the production of academic works in Brazil...
+  This work presents the development of the ABNTyp package for formatting academic documents according to ABNT standards, using the Typst typesetting system. The objective is to provide a modern and accessible alternative for the production of academic works in Brazil...
 ]
 ```
 
@@ -1010,7 +1010,7 @@ Formata tabelas conforme IBGE e NBR 14724.
 
 === math.typ _(removido)_
 
-As funções matemáticas em português (`sen`, `frac`, `binomio`, `raiz`, `exibicao`, `em-linha`, `subscrito`, `sub-subscrito`) foram movidas para o *matypst*, o pacote companheiro do ABNTypst. Consulte a documentação do matypst em `src/matematica.typ`.
+As funções matemáticas em português (`sen`, `frac`, `binomio`, `raiz`, `exibicao`, `em-linha`, `subscrito`, `sub-subscrito`) foram movidas para o *ferrmat*, o pacote companheiro do ABNTyp. Consulte a documentação do ferrmat em `src/matematica.typ`.
 
 == References (Referências)
 
@@ -1421,11 +1421,11 @@ Template para projetos de pesquisa.
 )
 
 // Cronograma do projeto
-#cronograma(
+#cronograma-simples(
   titulo: "CRONOGRAMA",
-  activities: ("Revisão bibliográfica", "Coleta de dados", "Análise"),
-  periods: ("Jan", "Fev", "Mar", "Abr", "Mai", "Jun"),
-  schedule: (
+  atividades: ("Revisão bibliográfica", "Coleta de dados", "Análise"),
+  periodos: ("Jan", "Fev", "Mar", "Abr", "Mai", "Jun"),
+  marcacoes: (
     (true, true, false, false, false, false),
     (false, true, true, true, false, false),
     (false, false, false, true, true, true),
@@ -1774,7 +1774,7 @@ Veja o arquivo `examples/tcc-exemplo.typ` para um exemplo completo de Trabalho d
 
 ```
 meu-tcc/
-├── abntypst/           # Pacote
+├── abntyp/           # Pacote
 ├── imagens/            # Suas imagens
 ├── main.typ            # Documento principal
 ├── capitulos/
@@ -1789,7 +1789,7 @@ meu-tcc/
 *main.typ:*
 
 ```typst
-#import "abntypst/lib.typ": *
+#import "abntyp/lib.typ": *
 
 #show: abntcc.with(...)
 
@@ -1920,7 +1920,7 @@ Para casos especiais, você pode usar as funções de formatação manual (`ref-
 
 - Novo template `research-project.typ`: projetos de pesquisa conforme NBR 15287:2025
   - Template completo com capa e folha de rosto específicas
-  - Funções para cronograma e recursos do projeto
+  - Função `cronograma-simples()` e recursos do projeto
   - Glossário, apêndices e anexos
 - Novo template `technical-report.typ`: relatórios técnicos conforme NBR 10719:2015
   - Capa e folha de rosto com código de identificação

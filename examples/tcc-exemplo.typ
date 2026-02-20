@@ -1,9 +1,9 @@
 // ============================================================================
-// EXEMPLO DE DISSERTAÇÃO DE MESTRADO USANDO ABNTypst
+// EXEMPLO DE DISSERTAÇÃO DE MESTRADO USANDO ABNTyp
 // ============================================================================
 //
 // Este arquivo é um exemplo completo de dissertação de mestrado formatada
-// conforme as normas ABNT, usando o pacote ABNTypst.
+// conforme as normas ABNT, usando o pacote ABNTyp.
 //
 // COMO USAR:
 // ----------
@@ -16,7 +16,7 @@
 //
 // REQUISITOS:
 // - Typst instalado (https://typst.app)
-// - Pasta abntypst no mesmo diretório ou caminho correto no import
+// - Pasta abntyp no mesmo diretório ou caminho correto no import
 //
 // ESTRUTURA DO DOCUMENTO:
 // - Elementos pré-textuais (capa, folha de rosto, resumo, sumário)
@@ -34,8 +34,8 @@
 // O caminho "../lib.typ" assume que este arquivo está na pasta examples/
 // Se seu arquivo estiver em outro lugar, ajuste o caminho.
 //
-// DICA: Se colocar o ABNTypst na raiz do seu projeto:
-//   #import "abntypst/lib.typ": *
+// DICA: Se colocar o ABNTyp na raiz do seu projeto:
+//   #import "abntyp/lib.typ": *
 //
 // O asterisco (*) significa "importar tudo" do pacote.
 
@@ -583,7 +583,7 @@ O desenvolvimento do trabalho seguiu as etapas ilustradas na @fig-metodologia.
       Análise → Design → Implementação → Testes → Documentação
     ]
   ),
-  caption: [Etapas do desenvolvimento do pacote ABNTypst],
+  caption: [Etapas do desenvolvimento do pacote ABNTyp],
 ) <fig-metodologia>
 
 // FONTE: Obrigatória abaixo da figura
@@ -627,7 +627,7 @@ A @fig-arquitetura apresenta a arquitetura geral do pacote desenvolvido.
       )
     ]
   ),
-  caption: [Arquitetura modular do pacote ABNTypst],
+  caption: [Arquitetura modular do pacote ABNTyp],
 ) <fig-arquitetura>
 
 #fonte[Elaborado pelo autor (2026).]
@@ -688,7 +688,7 @@ A @tab-funcionalidades resume as principais funcionalidades implementadas no pac
     // Linha inferior (mais grossa)
     table.hline(stroke: 1.5pt),
   ),
-  caption: [Módulos implementados no pacote ABNTypst],
+  caption: [Módulos implementados no pacote ABNTyp],
   kind: table,
 ) <tab-funcionalidades>
 
@@ -748,7 +748,7 @@ Todos os testes apresentaram resultados satisfatórios. Os documentos gerados fo
 // 4. Apresentar limitações (opcional, mas recomendado)
 // 5. Sugerir trabalhos futuros
 
-Este trabalho apresentou o desenvolvimento do pacote ABNTypst, uma solução moderna para formatação de documentos acadêmicos conforme as normas ABNT, utilizando a linguagem Typst.
+Este trabalho apresentou o desenvolvimento do pacote ABNTyp, uma solução moderna para formatação de documentos acadêmicos conforme as normas ABNT, utilizando a linguagem Typst.
 
 
 == Síntese dos Resultados
@@ -874,7 +874,7 @@ Este questionário foi aplicado aos participantes da pesquisa.
 2. Se sim, qual ferramenta?
    ( ) Microsoft Word  ( ) LaTeX  ( ) Google Docs  ( ) Outra: ___________
 
-3. Como você avalia a facilidade de uso do ABNTypst?
+3. Como você avalia a facilidade de uso do ABNTyp?
    ( ) Muito fácil  ( ) Fácil  ( ) Moderado  ( ) Difícil  ( ) Muito difícil
 
 4. O documento gerado atende às normas ABNT?
@@ -891,7 +891,7 @@ Observações: _______________________________________________
 
 // Se quiser incluir código, use blocos de código:
 ```typst
-// lib.typ - Ponto de entrada do pacote ABNTypst
+// lib.typ - Ponto de entrada do pacote ABNTyp
 
 #import "src/templates/thesis.typ": *
 #import "src/templates/article.typ": *
@@ -957,7 +957,7 @@ ERRO: "cannot find file"
 SOLUÇÃO: Verifique o caminho do import. Use caminho relativo correto.
 
 ERRO: "unknown variable: abntcc"
-SOLUÇÃO: Certifique-se de importar com: #import "abntypst/lib.typ": *
+SOLUÇÃO: Certifique-se de importar com: #import "abntyp/lib.typ": *
 
 ERRO: Numeração de páginas incorreta
 SOLUÇÃO: Verifique se #counter(page).update(1) está antes da Introdução.
@@ -1015,7 +1015,7 @@ SOLUÇÃO: Use referências manuais ou verifique se o arquivo .bib existe.
 // ============================================================================
 
 - Documentação do Typst: https://typst.app/docs
-- Repositório ABNTypst: [URL do seu repositório]
+- Repositório ABNTyp: [URL do seu repositório]
 - abnTeX2 (LaTeX): https://github.com/abntex/abntex2
 - Normas ABNT: https://www.abnt.org.br
 
@@ -1026,7 +1026,7 @@ SOLUÇÃO: Use referências manuais ou verifique se o arquivo .bib existe.
 // ============================================================================
 //
 // Parabéns! Se você chegou até aqui, tem tudo o que precisa para criar
-// seu TCC, dissertação ou tese com o ABNTypst.
+// seu TCC, dissertação ou tese com o ABNTyp.
 //
 // Lembre-se:
 // 1. Substitua todos os textos de exemplo pelos seus próprios

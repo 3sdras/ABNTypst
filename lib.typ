@@ -1,5 +1,5 @@
 // ============================================================================
-// ABNTypst - ABNTypst Biblioteca Normativa Typst
+// ABNTyp - ABNTyp Biblioteca Normativa Typst
 // ============================================================================
 //
 // Copyright (c) 2024-2026 Esdras

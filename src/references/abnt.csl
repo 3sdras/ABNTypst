@@ -3,7 +3,7 @@
   <!--
     ABNT NBR 6023:2018 / NBR 10520:2023 - Estilo autor-data
 
-    Adaptado para o pacote ABNTypst
+    Adaptado para o pacote ABNTyp
     Licença: MIT
 
     Baseado no trabalho original de:
@@ -18,12 +18,12 @@
     - Legislação tem suporte limitado
   -->
   <info>
-    <title>ABNT NBR 6023:2018 / NBR 10520:2023 (ABNTypst)</title>
+    <title>ABNT NBR 6023:2018 / NBR 10520:2023 (ABNTyp)</title>
     <title-short>ABNT</title-short>
-    <id>https://github.com/esdras/abntypst/abnt.csl</id>
-    <link rel="self" href="https://github.com/esdras/abntypst/abnt.csl"/>
+    <id>https://github.com/3sdras/abntyp/abnt.csl</id>
+    <link rel="self" href="https://github.com/3sdras/abntyp/abnt.csl"/>
     <author>
-      <name>ABNTypst</name>
+      <name>ABNTyp</name>
     </author>
     <contributor>
       <name>Jucá da Costa</name>

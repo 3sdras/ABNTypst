@@ -17,7 +17,7 @@
 }
 
 /// Container genérico para elementos com título, numeração e fonte (ABNT).
-/// É a única forma de criar um `figure()` no ABNTypst.
+/// É a única forma de criar um `figure()` no ABNTyp.
 /// O `suplemento` é inferido automaticamente a partir do `tipo`:
 /// - `"imagem"` → "Figura" (padrão)
 /// - `"tabela"` → "Tabela"

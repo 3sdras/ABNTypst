@@ -1,7 +1,7 @@
 // Exemplo de Livro conforme NBR 6029:2023
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template book do ABNTypst para criar
+// Este exemplo demonstra o uso do template book do ABNTyp para criar
 // livros e folhetos em conformidade com a NBR 6029:2023.
 //
 // Elementos demonstrados:

@@ -24,7 +24,7 @@
 #import themes.simple: *
 #import themes.university: *
 
-// Re-exportar funcoes de citacao do ABNTypst para uso em slides
+// Re-exportar funcoes de citacao do ABNTyp para uso em slides
 #import "../references/citation.typ": citar, citar-autor, citar-multiplos, citar-etal, citar-entidade, citar-titulo
 
 // =============================================================================

@@ -1,12 +1,12 @@
-// Guia Rápido do ABNTypst
+// Guia Rápido do ABNTyp
 
-#set document(title: "Guia Rápido - ABNTypst")
+#set document(title: "Guia Rápido - ABNTyp")
 #set page(paper: "a4", margin: 2cm)
 #set text(font: "Times New Roman", size: 11pt, lang: "pt")
 #set par(justify: true)
 
 #align(center)[
-  #text(size: 18pt, weight: "bold")[Guia Rápido do ABNTypst]
+  #text(size: 18pt, weight: "bold")[Guia Rápido do ABNTyp]
   #v(0.5em)
   #text(size: 11pt)[Formatação ABNT para Typst]
 ]
@@ -17,10 +17,10 @@
 
 == Instalação
 
-Coloque a pasta `abntypst` no seu projeto e importe:
+Coloque a pasta `abntyp` no seu projeto e importe:
 
 ```typst
-#import "abntypst/lib.typ": *
+#import "abntyp/lib.typ": *
 ```
 
 == Documento Básico

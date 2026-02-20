@@ -1,7 +1,7 @@
 // Exemplo de Publicação Periódica Técnica e/ou Científica conforme NBR 6021:2015
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template periodical do ABNTypst para criar
+// Este exemplo demonstra o uso do template periodical do ABNTyp para criar
 // fascículos de periódicos científicos em conformidade com a NBR 6021:2015.
 //
 // Elementos demonstrados:

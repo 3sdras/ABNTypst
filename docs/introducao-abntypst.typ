@@ -1,12 +1,13 @@
-// Breve Introdução ao ABNTypst
+// Breve Introdução ao ABNTyp
 // Documento tutorial para iniciantes
-// Inspirado no "Breve Introdução ao LaTeX 2ε" de Lenimar Nunes de Andrade
+// Adaptado da documentação do pacote ABNTex2 de LaTeX
+// Cap. 1 baseado em "Breve Introdução ao LaTeX 2ε" de Lenimar Nunes de Andrade
 
 #import "../lib.typ": *
 
 #show: livro.with(
-  titulo: "Breve Introdução ao ABNTypst",
-  autor: "ABNTypst",
+  titulo: "Breve Introdução ao ABNTyp",
+  autor: "ABNTyp",
   editora: "",
   local: "",
   ano: 2026,
@@ -56,7 +57,7 @@
 
   #v(0.5cm)
 
-  #text(size: 36pt, weight: "bold")[ABNTypst]
+  #text(size: 36pt, weight: "bold")[ABNTyp]
 
   #v(0.5cm)
 
@@ -123,15 +124,15 @@
 // ============================================================================
 
 #book-preface(titulo: "PREFÁCIO")[
-  Estas notas são uma adaptação dos trabalhos originais "Uma breve introdução ao $"LaTeX" 2 epsilon$", de Lenimar Nunes de Andrade e a documentação do pacote ABNTex2 de LaTeX, para o caso do Typst, com o objetivo de servir de material didático para a disciplina "Software Livre para digitação de textos matemáticos" na UFJ.
+  Estas notas são uma adaptação da documentação do pacote ABNTex2 de LaTeX, para o caso do Typst, com o objetivo de servir de material didático para a disciplina "Software Livre para digitação de textos matemáticos" na UFJ. O Capítulo 1, sobre conceitos básicos do Typst, é baseado no trabalho "Uma breve introdução ao $"LaTeX" 2 epsilon$", de Lenimar Nunes de Andrade.
 
-  O ABNTypst é um pacote gratuito, de código aberto, desenvolvido para facilitar a produção de documentos técnicos e científicos brasileiros. Pode ser utilizado diretamente no navegador através do #link("https://typst.app")[typst.app], ou instalado localmente em qualquer sistema operacional.
+  O ABNTyp é um pacote gratuito, de código aberto, desenvolvido para facilitar a produção de documentos técnicos e científicos brasileiros. Pode ser utilizado diretamente no navegador através do #link("https://typst.app")[typst.app], ou instalado localmente em qualquer sistema operacional.
 
-  O *Matypst* é o pacote companheiro do ABNTypst, fornecendo utilitários genéricos para matemática em português, caixas decorativas, ambientes de teoremas e estilização de código. Para detalhes, consulte a _Breve Introdução ao Matypst_.
+  O *FerrMat* é o pacote companheiro do ABNTyp, fornecendo utilitários genéricos para matemática em português, caixas decorativas, ambientes de teoremas e estilização de código. Para detalhes, consulte a _Breve Introdução ao FerrMat_.
 
-  No Capítulo 1 são introduzidos os conceitos básicos do Typst e do ABNTypst. O Capítulo 2 trata dos elementos pré-textuais (capa, folha de rosto, resumo, etc.) e o Capítulo 3 aborda os elementos textuais (seções, citações, alíneas). A leitura desses três primeiros capítulos deve habilitar o leitor a produzir um trabalho acadêmico básico.
+  No Capítulo 1 são introduzidos os conceitos básicos do Typst e do ABNTyp. O Capítulo 2 trata dos elementos pré-textuais (capa, folha de rosto, resumo, etc.) e o Capítulo 3 aborda os elementos textuais (seções, citações, alíneas). A leitura desses três primeiros capítulos deve habilitar o leitor a produzir um trabalho acadêmico básico.
 
-  O Capítulo 4 trata de figuras, quadros e tabelas. Os Capítulos 5 e 6 tratam dos elementos pós-textuais e dos diferentes tipos de documentos suportados pelo ABNTypst. Para fórmulas matemáticas, diagramas e gráficos, consulte a _Breve Introdução ao Matypst_.
+  O Capítulo 4 trata de figuras, quadros e tabelas. Os Capítulos 5 e 6 tratam dos elementos pós-textuais e dos diferentes tipos de documentos suportados pelo ABNTyp. Para fórmulas matemáticas, diagramas e gráficos, consulte a _Breve Introdução ao FerrMat_.
 
   Os apêndices contêm um guia de migração para quem vem do LaTeX (Apêndice A), recursos na Internet (Apêndice B) e uma tabela das normas ABNT implementadas (Apêndice C).
 
@@ -140,7 +141,7 @@
   #align(right)[
     Jataí, janeiro de 2026
 
-    _Equipe ABNTypst_
+    _Equipe ABNTyp_
   ]
 ]
 
@@ -169,19 +170,21 @@ As principais vantagens do Typst sobre o LaTeX são:
 - *Instalação fácil*: Um único executável, sem dependências complexas
 - *Webapp disponível*: Pode ser usado diretamente no navegador sem instalar nada
 
-== O que é o ABNTypst
+== O que é o ABNTyp
 
-O ABNTypst (ABNTypst Biblioteca Normativa Typst) é um pacote que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos em Typst.
+O ABNTyp (ABNTyp Biblioteca Normativa Typst) é um pacote que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos em Typst.
 
 O projeto é uma adaptação do abnTeX2, o excelente pacote LaTeX mantido por Lauro César Araujo e colaboradores, que há anos auxilia a comunidade acadêmica brasileira.
 
-Graças ao trabalho original da equipe do abnTeX2, o ABNTypst oferece templates prontos para teses, dissertações, TCCs, artigos, relatórios e outros tipos de documentos, além de:
+Graças ao trabalho original da equipe do abnTeX2, o ABNTyp oferece templates prontos para teses, dissertações, TCCs, artigos, relatórios e outros tipos de documentos, além de:
 
 - Funções para criar capas, folhas de rosto, resumos e outros elementos pré-textuais
 - Formatação automática de seções conforme a NBR 6024
 - Sistema de citações autor-data e numérico conforme a NBR 10520
 - Tabelas no padrão IBGE
 - Formatação automática de referências conforme a NBR 6023
+
+Para fórmulas matemáticas em português, caixas decorativas, ambientes de teoremas e estilização de código, consulte o pacote companheiro *FerrMat* e sua documentação (_Breve Introdução ao FerrMat_).
 
 == Usando o Typst
 
@@ -196,9 +199,9 @@ O webapp oferece:
 - Colaboração em tempo real (similar ao Google Docs)
 - Acesso a pacotes da comunidade
 
-Para usar o ABNTypst no webapp, basta importar o pacote no início do documento:
+Para usar o ABNTyp no webapp, basta importar o pacote no início do documento:
 
-#raw(block: true, lang: "typst", "#import \"@preview/abntypst:0.1.0\": *")
+#raw(block: true, lang: "typst", "#import \"@preview/abntyp:0.1.0\": *")
 
 === Instalação local (CLI)
 
@@ -249,10 +252,10 @@ Vejamos o documento Typst mais simples possível:
 
 Este código acima produz um documento de uma página contendo apenas "Olá, mundo!".
 
-Para um documento acadêmico usando ABNTypst, o exemplo mínimo seria:
+Para um documento acadêmico usando ABNTyp, o exemplo mínimo seria:
 
 #exemplo[
-  #raw(block: true, lang: "typst", "#import \"@preview/abntypst:0.1.0\": *
+  #raw(block: true, lang: "typst", "#import \"@preview/abntyp:0.1.0\": *
 
 #show: abntcc.with(
   titulo: \"Meu Trabalho Acadêmico\",
@@ -287,7 +290,7 @@ Um documento Typst pode ser dividido em três partes:
 
 #exemplo[
   #raw(block: true, lang: "typst", "// 1. Preâmbulo (importações)
-#import \"@preview/abntypst:0.1.0\": *
+#import \"@preview/abntyp:0.1.0\": *
 
 // 2. Configuração
 #set page(paper: \"a4\", margin: 2cm)
@@ -477,7 +480,7 @@ A capa é elemento obrigatório e deve conter:
 - Local (cidade)
 - Ano
 
-No ABNTypst, a capa é criada com a função `#capa()`:
+No ABNTyp, a capa é criada com a função `#capa()`:
 
 #exemplo[
   #raw(block: true, lang: "typst", "#capa(
@@ -531,7 +534,7 @@ A ficha catalográfica deve ser elaborada por um bibliotecário. Na maioria das 
 ]
 
 
-O ABNTypst também oferece a função `#ficha-catalografica()`, que cria a moldura padrão da ficha (caixa de 12,5 × 7,5~cm, fonte 10pt, centralizada na parte inferior da página).
+O ABNTyp também oferece a função `#ficha-catalografica()`, que cria a moldura padrão da ficha (caixa de 12,5 × 7,5~cm, fonte 10pt, centralizada na parte inferior da página).
 
 Diferente de funções como `#capa()` ou `#folha-rosto()`, que possuem campos nomeados (`autor:`, `titulo:`, etc.), a `#ficha-catalografica()` recebe conteúdo livre, pois a ficha segue uma notação biblioteconômica específica (código Cutter, CDU/CDD) que não se presta a campos parametrizados:
 
@@ -685,7 +688,7 @@ As listas são elementos opcionais que facilitam a localização de figuras, tab
 
 == Sumário
 
-O sumário é elemento obrigatório conforme a NBR 6027:2012, que estabelece as regras para sua apresentação. Ele lista as seções do trabalho com suas respectivas páginas. No ABNTypst, é gerado automaticamente:
+O sumário é elemento obrigatório conforme a NBR 6027:2012, que estabelece as regras para sua apresentação. Ele lista as seções do trabalho com suas respectivas páginas. No ABNTyp, é gerado automaticamente:
 
 #exemplo[
   #raw(block: true, lang: "typst", "#sumario()
@@ -709,7 +712,7 @@ Os elementos textuais constituem o núcleo do trabalho, onde o autor desenvolve 
 
 == Seções e numeração progressiva (NBR 6024)
 
-A NBR 6024:2012 estabelece as regras para numeração progressiva das seções de um documento. O ABNTypst implementa automaticamente a formatação correta:
+A NBR 6024:2012 estabelece as regras para numeração progressiva das seções de um documento. O ABNTyp implementa automaticamente a formatação correta:
 
 #figure(
   table(
@@ -839,7 +842,7 @@ confirmam os resultados.
 
 === Citações com arquivo .bib
 
-Além das funções manuais apresentadas acima, o ABNTypst suporta citações automáticas via arquivo `.bib`, usando a sintaxe nativa `@chave` do Typst. Esse é o método recomendado para documentos com muitas referências, pois evita erros de formatação e mantém a consistência entre citações e lista de referências.
+Além das funções manuais apresentadas acima, o ABNTyp suporta citações automáticas via arquivo `.bib`, usando a sintaxe nativa `@chave` do Typst. Esse é o método recomendado para documentos com muitas referências, pois evita erros de formatação e mantém a consistência entre citações e lista de referências.
 
 Para habilitar, basta adicionar `configurar-citacoes-abnt` no preâmbulo do documento:
 
@@ -856,7 +859,7 @@ O resultado foi positivo @silva2023[p. 45].
 // Autor no texto (suprime o nome entre parênteses)
 Segundo Silva [-@silva2023], o resultado foi positivo.")
 
-  Resultado: nas citações com `@chave`, o ABNTypst gera automaticamente o formato ABNT autor-data --- por exemplo, "(SILVA, 2023)" ou "(SILVA, 2023, p. 45)". A sintaxe `[-@chave]` suprime o nome do autor, útil quando ele já aparece no texto.
+  Resultado: nas citações com `@chave`, o ABNTyp gera automaticamente o formato ABNT autor-data --- por exemplo, "(SILVA, 2023)" ou "(SILVA, 2023, p. 45)". A sintaxe `[-@chave]` suprime o nome do autor, útil quando ele já aparece no texto.
 ]
 
 As chaves (como `silva2023`) devem corresponder às entradas do arquivo `.bib` usado na bibliografia. No final do documento, inclua `#referencias("arquivo.bib")` para gerar a lista de referências (veja a @sec:ref-auto).
@@ -884,7 +887,7 @@ em 2019.] é uma alternativa moderna ao LaTeX#footnote[Criado
 por Leslie Lamport na década de 1980.].")
 ]
 
-O ABNTypst formata as notas automaticamente conforme a ABNT: fonte menor (10pt), espaçamento simples, separadas do texto por um filete de 5 cm.
+O ABNTyp formata as notas automaticamente conforme a ABNT: fonte menor (10pt), espaçamento simples, separadas do texto por um filete de 5 cm.
 
 == Alíneas e subalíneas
 
@@ -948,7 +951,7 @@ Para criar uma referência, use `<label>` após o elemento. Para citá-la, use `
 
 Figuras, quadros e tabelas são elementos essenciais em trabalhos acadêmicos. A ABNT estabelece regras específicas para sua apresentação.
 
-No ABNTypst, todos esses elementos são inseridos por meio da função `#container()`. Ela é um invólucro sobre a função nativa `figure()` do Typst e cuida automaticamente de título (caption), numeração sequencial, fonte e nota --- tudo formatado conforme a ABNT. Dentro do container, usamos funções auxiliares para o conteúdo: `#imagem()` para fotografias e ilustrações, `#quadro()` para tabelas textuais com bordas fechadas, e `#tabela()` para tabelas numéricas no padrão IBGE (sem bordas laterais).
+No ABNTyp, todos esses elementos são inseridos por meio da função `#container()`. Ela é um invólucro sobre a função nativa `figure()` do Typst e cuida automaticamente de título (caption), numeração sequencial, fonte e nota --- tudo formatado conforme a ABNT. Dentro do container, usamos funções auxiliares para o conteúdo: `#imagem()` para fotografias e ilustrações, `#quadro()` para tabelas textuais com bordas fechadas, e `#tabela()` para tabelas numéricas no padrão IBGE (sem bordas laterais).
 
 O parâmetro `tipo` indica o tipo do elemento --- a partir dele, o `container` infere a legenda automaticamente:
 
@@ -968,7 +971,7 @@ O parâmetro `tipo` indica o tipo do elemento --- a partir dele, o `container` i
 
 == O container <sec:container>
 
-A função `#container()` é a _única_ forma de criar um elemento com título e numeração no ABNTypst. Seus parâmetros principais são:
+A função `#container()` é a _única_ forma de criar um elemento com título e numeração no ABNTyp. Seus parâmetros principais são:
 
 #raw(block: true, lang: "typst", "#container(
   legenda: [Título do elemento],  // aparece acima
@@ -1208,7 +1211,7 @@ Porém, o uso recomendado é sempre via `container`:
 
 == Listas automáticas
 
-O ABNTypst gera automaticamente listas de figuras, tabelas e quadros:
+O ABNTyp gera automaticamente listas de figuras, tabelas e quadros:
 
 #raw(block: true, lang: "typst", "// No início do documento, após o sumário:
 
@@ -1232,7 +1235,7 @@ Os elementos pós-textuais complementam o trabalho e incluem referências, apên
 
 == Referências bibliográficas (NBR 6023)
 
-As referências são obrigatórias e devem seguir a NBR 6023:2018. O ABNTypst suporta referências manuais e automáticas via arquivo `.bib`.
+As referências são obrigatórias e devem seguir a NBR 6023:2018. O ABNTyp suporta referências manuais e automáticas via arquivo `.bib`.
 
 === Referências manuais <sec:ref-manual>
 
@@ -1254,7 +1257,7 @@ n. 3, p. 45-67, set. 2022.")
 
 === Referências automáticas <sec:ref-auto>
 
-O ABNTypst pode usar arquivos `.bib` para gerar referências automaticamente, seguindo o fluxo: configurar citações → citar no texto → gerar bibliografia.
+O ABNTyp pode usar arquivos `.bib` para gerar referências automaticamente, seguindo o fluxo: configurar citações → citar no texto → gerar bibliografia.
 
 #exemplo[
   #raw(block: true, lang: "typst", "// 1. No preâmbulo: habilitar citações ABNT
@@ -1277,7 +1280,7 @@ Para listar *todas* as entradas do `.bib` (inclusive as não citadas no texto), 
 
 ==== Tipos de entrada `.bib` suportados
 
-O ABNTypst usa o estilo CSL `abnt.csl` para formatar as referências, baseado no trabalho original de Jucá da Costa e Antenor Aguiar C. A. Matos (#link("https://github.com/virgilinojuca/csl-abnt")[csl-abnt], domínio público). Os principais tipos de entrada BibTeX/BibLaTeX suportados são:
+O ABNTyp usa o estilo CSL `abnt.csl` para formatar as referências, baseado no trabalho original de Jucá da Costa e Antenor Aguiar C. A. Matos (#link("https://github.com/virgilinojuca/csl-abnt")[csl-abnt], domínio público). Os principais tipos de entrada BibTeX/BibLaTeX suportados são:
 
 #figure(
   table(
@@ -1479,7 +1482,7 @@ O glossário lista termos técnicos em ordem alfabética:
 
 == Índice remissivo
 
-O índice remissivo lista termos importantes com suas páginas. O ABNTypst oferece funções para marcar e gerar índices:
+O índice remissivo lista termos importantes com suas páginas. O ABNTyp oferece funções para marcar e gerar índices:
 
 #exemplo[
   #raw(block: true, lang: "typst", "// No texto, marque termos para o índice
@@ -1501,7 +1504,7 @@ O #idx[Quicksort] é um algoritmo de #idx[ordenação]...
 
 = Tipos de Documentos
 
-O ABNTypst oferece templates para diversos tipos de documentos acadêmicos e técnicos.
+O ABNTyp oferece templates para diversos tipos de documentos acadêmicos e técnicos.
 
 == Trabalho acadêmico (tese, dissertação, TCC)
 
@@ -1583,8 +1586,10 @@ O template `projeto-pesquisa` segue a NBR 15287:2025:
 == Objetivos Específicos
 = Metodologia
 = Cronograma
-#cronograma(...)
+#cronograma-simples(...)
 = Referências")
+
+A função `cronograma-simples()` gera uma tabela básica de atividades × períodos. Para um cronograma mais elaborado --- gráfico de Gantt com barras coloridas, progresso, dependências e marcos --- use a função `cronograma()` do pacote FerrMat.
 
 == Livro
 
@@ -1626,7 +1631,7 @@ O template `poster` segue a NBR 15437:2006:
 O template `slides` usa o pacote Touying para apresentações:
 
 #raw(block: true, lang: "typst", "#import \"@preview/touying:0.4.0\": *
-#import \"@preview/abntypst:0.1.0\": slides-defesa
+#import \"@preview/abntyp:0.1.0\": slides-defesa
 
 #show: slides-defesa.with(
   titulo: \"Título do Trabalho\",
@@ -1760,14 +1765,14 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
     [#raw("`listings`")], [nativo (#raw("raw"))], [Código-fonte],
     [`booktabs`], [nativo], [Tabelas elegantes],
     [`natbib`/`biblatex`], [nativo + CSL], [Bibliografia],
-    [`abnTeX2`], [`abntypst`], [Normas ABNT],
+    [`abnTeX2`], [`abntyp`], [Normas ABNT],
     table.hline(stroke: 1pt),
   ),
   caption: [Equivalências de pacotes],
   kind: table,
 )
 
-== abnTeX2 vs ABNTypst
+== abnTeX2 vs ABNTyp
 
 #figure(
   table(
@@ -1775,7 +1780,7 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
     stroke: none,
     inset: 8pt,
     table.hline(stroke: 1pt),
-    [*abnTeX2 (LaTeX)*], [*ABNTypst (Typst)*],
+    [*abnTeX2 (LaTeX)*], [*ABNTyp (Typst)*],
     table.hline(stroke: 0.5pt),
     [#raw("\\documentclass{abntex2}")], [#raw("#show: abntcc.with(..)")],
     [#raw("\\imprimircapa")], [#raw("#capa(..)")],
@@ -1795,7 +1800,7 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
     [#raw("\\DoubleSpacing")], [#raw("#set par(leading: 1.4em)")],
     table.hline(stroke: 1pt),
   ),
-  caption: [Equivalências abnTeX2/ABNTypst],
+  caption: [Equivalências abnTeX2/ABNTyp],
   kind: table,
 )
 
@@ -1819,11 +1824,11 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
 - *Discord da comunidade*: #link("https://discord.gg/2uDybryKPe")
 - *Fórum de discussões*: #link("https://github.com/typst/typst/discussions")
 
-== ABNTypst
+== ABNTyp
 
-- *Repositório GitHub*: #link("https://github.com/3sdras/abntypst")
-- *Documentação*: #link("https://github.com/3sdras/abntypst/docs")
-- *Issues (problemas)*: #link("https://github.com/3sdras/abntypst/issues")
+- *Repositório GitHub*: #link("https://github.com/3sdras/abntyp")
+- *Documentação*: #link("https://github.com/3sdras/abntyp/docs")
+- *Issues (problemas)*: #link("https://github.com/3sdras/abntyp/issues")
 
 == Normas ABNT
 

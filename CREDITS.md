@@ -2,7 +2,7 @@
 
 ## abnTeX2
 
-O **ABNTypst** (ABNTypst Biblioteca Normativa Typst) começou como uma adaptação do projeto **[abnTeX2](https://github.com/abntex/abntex2)** (ABsurdas Normas para TeX), o pacote LaTeX para formatação de documentos técnicos e científicos brasileiros em conformidade com as normas ABNT.
+O **ABNTyp** (ABNTyp Biblioteca Normativa Typst) começou como uma adaptação do projeto **[abnTeX2](https://github.com/abntex/abntex2)** (ABsurdas Normas para TeX), o pacote LaTeX para formatação de documentos técnicos e científicos brasileiros em conformidade com as normas ABNT.
 
 O abnTeX2 é mantido por **Lauro César Araujo** e a equipe abnTeX2, e está disponível sob a licença LPPL (LaTeX Project Public License).
 
@@ -13,7 +13,7 @@ Agradecemos especialmente:
 
 ### Elementos Adaptados do abnTeX2
 
-Os seguintes aspectos do ABNTypst foram pegos do abnTeX2 e adaptados:
+Os seguintes aspectos do ABNTyp foram pegos do abnTeX2 e adaptados:
 
 1. **Estrutura de documentação**
    - Organização em manuais e modelos canônicos
@@ -55,11 +55,9 @@ E todos os demais contribuidores que tornaram possível a produção de trabalho
 
 ## Uma breve introdução ao LaTeX 2ε
 
-O documento `docs/introducao-abntypst.typ` é uma adaptação do trabalho **"Breve Introdução ao LaTeX 2ε"** do professor **Lenimar Nunes de Andrade**, do Departamento de Matemática da Universidade Federal da Paraíba.
+O Capítulo 1 ("Conceitos Básicos") do documento `docs/introducao-abntypst.typ` é baseado no trabalho **"Breve Introdução ao LaTeX 2ε"** do professor **Lenimar Nunes de Andrade**, do Departamento de Matemática da Universidade Federal da Paraíba.
 
-O trabalho original, disponível em ftp://mat.ufpb.br/pub/textos/tex/, é um tutorial didático que há décadas auxilia estudantes brasileiros a aprenderem LaTeX. Nossa adaptação transpõe esse excelente material para o contexto do Typst e das normas ABNT, mantendo o estilo pedagógico e a estrutura do original.
-
-Agradecemos ao professor Lenimar Nunes de Andrade pela contribuição inestimável à comunidade acadêmica brasileira e por disponibilizar seu trabalho livremente.
+O trabalho original, disponível em ftp://mat.ufpb.br/pub/textos/tex/, é um tutorial didático que há décadas auxilia estudantes brasileiros a aprenderem LaTeX. O pacote companheiro **[FerrMat](https://github.com/3sdras/ferrmat)** é uma adaptação mais ampla desse mesmo trabalho, cobrindo matemática em português, caixas decorativas e ambientes de teoremas.
 
 ---
 
@@ -67,13 +65,13 @@ Agradecemos ao professor Lenimar Nunes de Andrade pela contribuição inestimáv
 
 ### Claude Code
 
-O **[Claude Code](https://claude.ai/claude-code)** é uma ferramenta de programação assistida por IA da Anthropic. Todas as versões iniciais do código do ABNTypst, incluindo os templates, funções, documentação e o documento `introducao-abntypst.typ`, foram desenvolvidas via Claude Code (modelo Claude Opus 4.5), bem como boa parte da revisão.
+O **[Claude Code](https://claude.ai/claude-code)** é uma ferramenta de programação assistida por IA da Anthropic. Todas as versões iniciais do código do ABNTyp, incluindo os templates, funções, documentação e o documento `introducao-abntypst.typ`, foram desenvolvidas via Claude Code (modelo Claude Opus 4.5), bem como boa parte da revisão.
 
 Agradecemos à equipe da Anthropic pelo desenvolvimento desta ferramenta que potencializa significativamente a produtividade.
 
 ### Typst
 
-O **[Typst](https://typst.app)** é o sistema de tipografia sobre o qual o ABNTypst foi construído. Agradecemos à equipe Typst pelo excelente trabalho.
+O **[Typst](https://typst.app)** é o sistema de tipografia sobre o qual o ABNTyp foi construído. Agradecemos à equipe Typst pelo excelente trabalho.
 
 ### CSL ABNT
 
@@ -118,7 +116,7 @@ Todas as contribuições são bem-vindas e serão devidamente creditadas.
 
 ## Licença
 
-O ABNTypst é distribuído sob a licença **MIT**, que permite uso, modificação e redistribuição livre, desde que mantidos os créditos apropriados.
+O ABNTyp é distribuído sob a licença **MIT**, que permite uso, modificação e redistribuição livre, desde que mantidos os créditos apropriados.
 
 ```
 MIT License

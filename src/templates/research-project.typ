@@ -352,8 +352,9 @@
   pagebreak()
 }
 
-/// Cronograma do projeto
-/// Cria uma tabela de cronograma com atividades e periodos
+/// Cronograma simples do projeto (tabela atividades × períodos)
+/// Para um cronograma mais elaborado (Gantt com barras, cores e dependências),
+/// use a função `cronograma()` do pacote FerrMat.
 ///
 /// Parametros:
 /// - titulo: titulo da secao (padrao: "CRONOGRAMA")
@@ -361,7 +362,7 @@
 /// - periodos: lista de periodos (ex: ("Jan", "Fev", "Mar", ...))
 /// - marcacoes: matriz de booleanos indicando quando cada atividade ocorre
 ///             marcacoes.at(i).at(j) = true se atividade i ocorre no periodo j
-#let cronograma(
+#let cronograma-simples(
   titulo: "CRONOGRAMA",
   atividades: (),
   periodos: (),

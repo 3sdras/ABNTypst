@@ -1,7 +1,7 @@
 // Exemplo de Artigo Científico conforme NBR 6022:2018
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template article do ABNTypst para criar
+// Este exemplo demonstra o uso do template article do ABNTyp para criar
 // artigos científicos em conformidade com a NBR 6022:2018.
 //
 // Elementos demonstrados:

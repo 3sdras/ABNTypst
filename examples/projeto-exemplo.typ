@@ -1,7 +1,7 @@
 // Exemplo de Projeto de Pesquisa conforme NBR 15287:2025
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template research-project do ABNTypst para
+// Este exemplo demonstra o uso do template research-project do ABNTyp para
 // criar projetos de pesquisa em conformidade com a NBR 15287:2025.
 //
 // Elementos demonstrados:
@@ -9,7 +9,7 @@
 // - project-title-page() - Folha de rosto com orientador
 // - Elementos textuais obrigatórios (tema, problema, hipóteses, objetivos,
 //   justificativa, referencial teórico, metodologia)
-// - cronograma() - Cronograma com atividades × períodos
+// - cronograma-simples() - Cronograma com atividades × períodos
 // - recursos() - Recursos com valores e total
 // - glossario-projeto() - Glossário
 // - apendice() e anexo()
@@ -251,7 +251,7 @@ O projeto será submetido ao Comitê de Ética em Pesquisa da instituição. Tod
 
 = Cronograma
 
-#cronograma(
+#cronograma-simples(
   titulo: "CRONOGRAMA",
   atividades: (
     "Revisão sistemática da literatura",

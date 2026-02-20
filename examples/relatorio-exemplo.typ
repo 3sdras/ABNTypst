@@ -1,7 +1,7 @@
 // Exemplo de Relatório Técnico e/ou Científico conforme NBR 10719:2015
 //
 // ============================================================================
-// Este exemplo demonstra o uso do template technical-report do ABNTypst para
+// Este exemplo demonstra o uso do template technical-report do ABNTyp para
 // criar relatórios técnicos em conformidade com a NBR 10719:2015.
 //
 // Elementos demonstrados:
