@@ -1217,6 +1217,38 @@ Porém, o uso recomendado é sempre via `container`:
   )
 ]")
 
+== Mesclando células (multicolumn e multirow)
+
+No LaTeX, mesclar células exige `\multicolumn{}` e o pacote `multirow`. No Typst, isso é nativo via `table.cell()`:
+
+/ `colspan`: número de colunas que a célula ocupa (equivalente a `\multicolumn`)
+/ `rowspan`: número de linhas que a célula ocupa (equivalente a `\multirow`)
+
+#exemplo[
+  #raw(block: true, lang: "typst", "#container(
+  legenda: [Horário de aulas],
+  tipo: \"quadro\",
+  origem: [Elaborado pelo autor.],
+)[
+  #quadro(
+    columns: (auto, 1fr, 1fr),
+    inset: 8pt,
+    align: center,
+    // Cabeçalho
+    [], [*Segunda*], [*Terça*],
+    // Célula que ocupa 2 linhas
+    table.cell(rowspan: 2)[*Manhã*],
+    [Cálculo I], [Física II],
+    [Álgebra], [Química],
+    // Célula que ocupa 2 colunas
+    table.cell(colspan: 2)[_Intervalo_],
+    [*Tarde*], [Programação], [Estatística],
+  )
+]")
+]
+
+O parâmetro `colspan` mescla colunas (horizontal) e `rowspan` mescla linhas (vertical). Ambos aceitam qualquer inteiro positivo. Os mesmos parâmetros funcionam em `#tabela()`, `#quadro()` e `table()` --- todos usam `table.cell()` internamente.
+
 == Listas automáticas
 
 O ABNTyp gera automaticamente listas de figuras, tabelas e quadros:
