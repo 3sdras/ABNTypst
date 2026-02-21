@@ -78,7 +78,7 @@
 
 = Introdução
 
-O *ABNTyp* (ABNTyp Biblioteca Normativa Typst) é um pacote para o sistema de composição tipográfica Typst que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos.
+O *ABNTyp* (ABNTyp — Base Normativa Typst) é um pacote para o sistema de composição tipográfica Typst que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos.
 
 == Por que usar o ABNTyp?
 

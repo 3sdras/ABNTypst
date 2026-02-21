@@ -1,6 +1,6 @@
 # ABNTyp
 
-**ABNTyp Biblioteca Normativa Typst** — Formatação de documentos técnicos e científicos brasileiros conforme normas ABNT para [Typst](https://typst.app).
+**ABNTyp — Base Normativa Typst** — Formatação de documentos técnicos e científicos brasileiros conforme normas ABNT para [Typst](https://typst.app).
 
 ---
 
@@ -334,4 +334,4 @@ Contribuições são bem-vindas! Por favor:
 
 ---
 
-_ABNTyp — Documentos técnicos e científicos brasileiros em Typst, compatíveis com as normas ABNT._
+_ABNTyp — Base Normativa Typst. Documentos técnicos e científicos brasileiros em Typst, compatíveis com as normas ABNT._

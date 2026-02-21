@@ -6,7 +6,7 @@
 #import "../lib.typ": *
 
 #show: livro.with(
-  titulo: "Breve Introdução ao ABNTyp",
+  titulo: "Breve Introdução ao ABNTyp — Base Normativa Typst",
   autor: "ABNTyp",
   editora: "",
   local: "",
@@ -58,6 +58,10 @@
   #v(0.5cm)
 
   #text(size: 36pt, weight: "bold")[ABNTyp]
+
+  #v(0.3cm)
+
+  #text(size: 16pt, style: "italic")[Base Normativa Typst]
 
   #v(0.5cm)
 
@@ -172,7 +176,7 @@ As principais vantagens do Typst sobre o LaTeX são:
 
 == O que é o ABNTyp
 
-O ABNTyp (ABNTyp Biblioteca Normativa Typst) é um pacote que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos em Typst.
+O ABNTyp (ABNTyp — Base Normativa Typst) é um pacote que implementa as normas da Associação Brasileira de Normas Técnicas (ABNT) para formatação de documentos acadêmicos em Typst.
 
 O projeto é uma adaptação do abnTeX2, o excelente pacote LaTeX mantido por Lauro César Araujo e colaboradores, que há anos auxilia a comunidade acadêmica brasileira.
 
