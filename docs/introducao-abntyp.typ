@@ -957,6 +957,10 @@ Figuras, quadros e tabelas são elementos essenciais em trabalhos acadêmicos. A
 
 No ABNTyp, todos esses elementos são inseridos por meio da função `#container()`. Ela é um invólucro sobre a função nativa `figure()` do Typst e cuida automaticamente de título (caption), numeração sequencial, fonte e nota --- tudo formatado conforme a ABNT. Dentro do container, usamos funções auxiliares para o conteúdo: `#imagem()` para fotografias e ilustrações, `#quadro()` para tabelas textuais com bordas fechadas, e `#tabela()` para tabelas numéricas no padrão IBGE (sem bordas laterais).
 
+*`grid()` vs. `table()`* --- No Typst, `grid()` e `table()` são funções diferentes. A `grid()` é um mecanismo de _layout_: posiciona elementos em linhas e colunas, sem bordas por padrão, sem título nem numeração. Já a `table()` é semântica: representa uma tabela de dados, com bordas por padrão, e pode receber legenda via `figure()`. As funções `#quadro()` e `#tabela()` do ABNTyp são wrappers sobre `table()` --- use-as dentro de `#container()` para dados tabulares. Para diagramação de layout (alinhar blocos lado a lado), use `grid()` diretamente.
+
+*A unidade `fr`* --- Ao definir colunas, a unidade `fr` (_fraction_) distribui o espaço disponível proporcionalmente. Por exemplo: `(1fr, 1fr, 1fr)` cria três colunas iguais (1/3 cada); `(1fr, 2fr)` cria duas colunas onde a segunda tem o dobro da largura; `(auto, 1fr)` faz a primeira ocupar só o necessário e a segunda preencher o restante; `(100pt, 1fr)` fixa a primeira e preenche o resto com a segunda.
+
 O parâmetro `tipo` indica o tipo do elemento --- a partir dele, o `container` infere a legenda automaticamente:
 
 #figure(
