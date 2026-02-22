@@ -4,14 +4,14 @@
 /// Simbolos de correcao de texto conforme NBR 6025
 
 /// Marca texto para supressao (deletar)
-/// Exemplo: #delete[texto a remover]
-#let delete(body) = {
+/// Exemplo: #suprimir[texto a remover]
+#let suprimir(body) = {
   strike(body)
 }
 
 /// Marca texto para insercao
 /// Mostra onde inserir novo conteudo
-#let insert(body) = {
+#let inserir(body) = {
   text(fill: blue)[$arrow.b$#body]
 }
 
@@ -45,7 +45,7 @@
 }
 
 /// Indica duvida - revisor deve consultar autor
-#let query() = {
+#let duvida() = {
   text(fill: orange, weight: "bold", [?])
 }
 
@@ -211,12 +211,12 @@
 
     [*Simbolo*], [*Significado*],
 
-    delete[texto], [Suprimir texto],
-    insert[novo], [Inserir texto],
+    suprimir[texto], [Suprimir texto],
+    inserir[novo], [Inserir texto],
     join-space(), [Unir (remover espaco)],
     separate(), [Separar (adicionar espaco)],
     see-original(), [Ver original (texto omitido)],
-    query(), [Duvida - consultar autor],
+    duvida(), [Duvida - consultar autor],
     keep-original[texto], [Manter original (correcao indevida)],
 
     mark-italic[texto], [Alterar para italico],

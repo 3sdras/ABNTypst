@@ -13,7 +13,7 @@
 // - Quanto ao enfoque: especial (autores, assuntos, titulos, etc.) ou geral
 
 /// Estado para armazenar entradas do indice
-#let index-entries = state("index-entries", ())
+#let index-entries = state("abnt-index-entries", ())
 
 /// Registra uma entrada no indice
 /// Esta funcao deve ser chamada no local do texto onde o termo aparece

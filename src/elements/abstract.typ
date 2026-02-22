@@ -49,7 +49,7 @@
 }
 
 /// Abstract em inglês
-#let abstract(conteudo, palavras-chave: ()) = {
+#let resumo-en(conteudo, palavras-chave: ()) = {
   abstract-page(
     titulo: "ABSTRACT",
     conteudo: conteudo,

@@ -287,7 +287,7 @@
 // O abstract é a tradução do resumo para inglês (obrigatório).
 // Se seu programa exigir resumo em outra língua, use a função foreign-abstract.
 
-#abstract(
+#resumo-en(
   palavras-chave: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4"),
 )[
   The formatting of academic documents in Brazil follows the standards of the Brazilian Association of Technical Standards (ABNT), which establishes guidelines for the presentation of works such as undergraduate theses, master's dissertations, and doctoral theses. This work aims to present the development of a system to automate the formatting of academic documents according to ABNT standards, using the Typst typesetting language. The methodology adopted consisted of a detailed analysis of current standards, identification of formatting requirements, and implementation of specific templates and functions for each document element. The results obtained demonstrate that it is possible to produce correctly formatted academic documents more simply and efficiently than traditional solutions based on LaTeX or conventional word processors. It is concluded that Typst, combined with the developed package, offers a viable and modern alternative for the production of academic works in Brazil, reducing the time spent on formatting and allowing authors to focus their efforts on content.

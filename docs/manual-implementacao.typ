@@ -443,10 +443,10 @@ Símbolos e sinais para revisão de originais e provas.
 
 ```typst
 // Marcar para suprimir (deletar)
-#let delete(body)
+#let suprimir(body)
 
 // Marcar para inserção
-#let insert(body)
+#let inserir(body)
 
 // Substituir texto
 #let replace-text(old, new)
@@ -464,7 +464,7 @@ Símbolos e sinais para revisão de originais e provas.
 #let see-original()
 
 // Indicar dúvida
-#let query()
+#let duvida()
 
 // Manter original (correção indevida)
 #let keep-original(body)
@@ -533,7 +533,7 @@ Símbolos e sinais para revisão de originais e provas.
 *Exemplo:*
 
 ```typst
-O texto foi #delete[removido] e #insert[inserido].
+O texto foi #suprimir[removido] e #inserir[inserido].
 
 #replace-text("antigo", "novo")
 
@@ -740,7 +740,7 @@ Cria páginas de resumo conforme NBR 6028.
 #let resumo(conteudo, palavras-chave: ())
 
 // Abstract em inglês
-#let abstract(conteudo, palavras-chave: ())
+#let resumo-en(conteudo, palavras-chave: ())
 
 // Resumo em outra língua
 #let foreign-abstract(
@@ -760,7 +760,7 @@ Cria páginas de resumo conforme NBR 6028.
   Este trabalho apresenta o desenvolvimento do pacote ABNTyp para formatação de documentos acadêmicos conforme as normas da ABNT, utilizando o sistema de composição tipográfica Typst. O objetivo é fornecer uma alternativa moderna e acessível para a produção de trabalhos acadêmicos no Brasil...
 ]
 
-#abstract(
+#resumo-en(
   palavras-chave: ("ABNT", "Typst", "Formatting", "Academic work"),
 )[
   This work presents the development of the ABNTyp package for formatting academic documents according to ABNT standards, using the Typst typesetting system. The objective is to provide a modern and accessible alternative for the production of academic works in Brazil...
@@ -1797,7 +1797,7 @@ meu-tcc/
 #capa(...)
 #folha-rosto(...)
 #resumo(...)
-#abstract(...)
+#resumo-en(...)
 #sumario()
 
 // Textuais

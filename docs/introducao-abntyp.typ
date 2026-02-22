@@ -647,7 +647,7 @@ O resumo deve apresentar de forma concisa os pontos relevantes do trabalho. Conf
   deve considerar as características dos dados de entrada.
 ]
 
-#abstract(
+#resumo-en(
   palavras-chave: (\"Algorithms\", \"Sorting\", \"Complexity\", \"Analysis\"),
 )[
   This work presents a comparative study of sorting algorithms,
@@ -1826,7 +1826,7 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
     [#raw("\\imprimircapa")], [#raw("#capa(..)")],
     [#raw("\\imprimirfolhaderosto")], [#raw("#folha-rosto(..)")],
     [#raw("\\begin{resumo}...\\end{resumo}")], [#raw("#resumo(..)[...]")],
-    [#raw("\\begin{abstract}...\\end{abstract}")], [#raw("#abstract(..)[...]")],
+    [#raw("\\begin{abstract}...\\end{abstract}")], [#raw("#resumo-en(..)[...]")],
     [#raw("\\pdfbookmark{Sumário}{toc}\\tableofcontents")], [#raw("#sumario()")],
     [#raw("\\chapter{...}")], [#raw("= Título") (nível 1)],
     [#raw("\\section{...}")], [#raw("== Título") (nível 2)],
