@@ -136,8 +136,8 @@ O ABNTyp implementa as seguintes normas ABNT (versões atualizadas):
 )
 
 // Elementos pré-textuais
-#capa(...)
-#folha-rosto(...)
+#capa()
+#folha-rosto()
 #resumo(keywords: keywords-pt)[Texto do resumo...]
 #resumo-en(keywords: keywords-en)[Abstract text...]
 #sumario()
@@ -224,7 +224,7 @@ Outros autores #citar-num-multiplos(("santos2022", "costa2021")) confirmam.
 
 ## Estrutura de Arquivos
 
-```
+```txt
 abntyp/
 ├── lib.typ                 # Ponto de entrada principal
 ├── README.md               # Este arquivo
