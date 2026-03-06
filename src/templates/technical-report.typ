@@ -29,6 +29,7 @@
 // - Indice (opcional)
 // - Formulario de identificacao (opcional)
 
+#import "../core/setup.typ": with-abnt-setup
 #import "../core/page.typ": *
 #import "../core/fonts.typ": *
 #import "../core/spacing.typ": *
@@ -81,112 +82,7 @@
     author: autores.map(a => if type(a) == dictionary { a.name } else { a }).join(", "),
   )
 
-  // Configuracao de pagina conforme NBR 10719
-  // Anverso: esquerda/superior 3cm, direita/inferior 2cm
-  set page(
-    paper: "a4",
-    margin: (
-      top: 3cm,
-      bottom: 2cm,
-      left: 3cm,
-      right: 2cm,
-    ),
-  )
-
-  // Configuracao de fonte
-  set text(
-    font: fonte,
-    size: 12pt,
-    lang: "pt",
-    region: "BR",
-  )
-
-  // Configuracao de paragrafo
-  set par(
-    leading: 1.5em * 0.65,
-    justify: true,
-    first-line-indent: (amount: 1.25cm, all: true),
-  )
-
-  set list(indent: 2em, body-indent: 0.5em)
-  set enum(indent: 2em, body-indent: 0.5em)
-  set terms(indent: 0em, hanging-indent: 2em, separator: [: ])
-
-  // Configuracao de headings
-  set heading(numbering: "1.1")
-
-  show heading.where(level: 1): it => {
-    pagebreak(weak: true)
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 2): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 3): it => {
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 4): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 5): it => {
-    v(1.5em)
-    text(weight: "regular", style: "italic", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  // Excluir indentacao de containers que nao devem ser indentados
-  show heading: set par(first-line-indent: 0pt)
-  show figure: set par(first-line-indent: 0pt)
-  show raw.where(block: true): set par(first-line-indent: 0pt)
-  show outline: set par(first-line-indent: 0pt)
-  show terms: set par(first-line-indent: 0pt)
-
-  // Configuracao de notas de rodape
-  set footnote.entry(
-    separator: line(length: 5cm, stroke: 0.5pt),
-  )
+  show: with-abnt-setup.with(fonte: fonte)
 
   // Conteudo
   body

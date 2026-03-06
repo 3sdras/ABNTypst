@@ -39,20 +39,16 @@
   body
 }
 
-/// Texto em tamanho reduzido (para citações longas, notas, etc.)
+/// Texto em tamanho reduzido (10pt) para citações longas, notas, legendas, fontes
 #let small-text(body) = {
   text(size: 10pt, body)
 }
 
-/// Texto para notas de rodapé
-#let footnote-text(body) = {
-  text(size: 10pt, body)
-}
+/// Texto para notas de rodapé (alias de small-text)
+#let footnote-text = small-text
 
-/// Texto para legendas
-#let caption-text(body) = {
-  text(size: 10pt, body)
-}
+/// Texto para legendas (alias de small-text)
+#let caption-text = small-text
 
 /// Configura notas de rodapé conforme ABNT
 /// - Separadas do texto por espaço simples e filete de 5 cm

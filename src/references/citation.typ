@@ -25,15 +25,16 @@
 // Para sistema numerico, ver: numeric.typ
 
 /// Formata citação autor-data
-/// - autor: sobrenome do autor
-/// - ano: ano da publicação
-/// - pagina: página (opcional)
+/// - autor: sobrenome do autor (string)
+/// - ano: ano da publicação (int ou string)
+/// - pagina: página (int ou string, opcional)
 #let citar(autor, ano, pagina: none) = {
   [(#upper(autor), #ano#if pagina != none [, p. #pagina])]
 }
 
 /// Citação com autor no texto
 /// "Segundo Silva (2023)..."
+/// - ano: int ou string
 #let citar-autor(autor, ano) = {
   [#autor (#ano)]
 }
@@ -46,6 +47,8 @@
 
 /// Citação de citação (apud)
 /// Autor original apud autor da obra consultada
+/// - anos: int ou string
+/// - pagina: int ou string (opcional)
 #let citar-apud(
   autor-original,
   ano-original,
@@ -160,3 +163,13 @@
   if url != none { [Disponível em: #url. ] }
   if data-acesso != none { [Acesso em: #data-acesso.] }
 }
+
+// Aliases curtos
+#let cautor = citar-autor
+#let cindireto = citar-indireto
+#let capud = citar-apud
+#let cmultiplos = citar-multiplos
+#let cetal = citar-etal
+#let centidade = citar-entidade
+#let ctitulo = citar-titulo
+#let ref-titulo = referencias-titulo

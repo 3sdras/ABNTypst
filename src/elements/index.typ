@@ -62,14 +62,14 @@
 
 /// Remissiva "ver" - remete de um termo para outro
 /// Exemplo: Aviacao ver Aeronautica
-#let index-see(from, to) = {
-  (type: "see", from: from, to: to)
+#let index-see(de, para) = {
+  (type: "see", from: de, to: para)
 }
 
 /// Remissiva "ver tambem" - amplia opcoes de consulta
 /// Exemplo: Ferias ver tambem Licenca
-#let index-see-also(from, to) = {
-  (type: "see-also", from: from, to: to)
+#let index-see-also(de, para) = {
+  (type: "see-also", from: de, to: para)
 }
 
 /// Gera o indice alfabetico
@@ -79,7 +79,7 @@
 /// - rotulo-tipo: tipo do indice para o titulo (ex: "DE ASSUNTOS", "ONOMASTICO")
 /// - entradas-ver: lista de remissivas "ver"
 /// - entradas-ver-tambem: lista de remissivas "ver tambem"
-/// - num-colunas: numero de colunas (padrao: 2)
+/// - colunas: numero de colunas (padrao: 2)
 /// - cabecalhos-letras: se true, mostra letras como cabecalhos de secao
 ///
 /// Exemplo:
@@ -99,7 +99,7 @@
   rotulo-tipo: none,
   entradas-ver: (),
   entradas-ver-tambem: (),
-  num-colunas: 2,
+  colunas: 2,
   cabecalhos-letras: true,
 ) = {
   // Titulo do indice
@@ -209,7 +209,7 @@
     // Renderizar indice
     set par(first-line-indent: 0pt)
 
-    columns(num-colunas, gutter: 1em)[
+    columns(colunas, gutter: 1em)[
       #for letter in by-letter.keys().sorted() {
         // Cabecalho da letra
         if cabecalhos-letras {
@@ -271,7 +271,7 @@
     rotulo-tipo: "DE ASSUNTOS",
     entradas-ver: entradas-ver,
     entradas-ver-tambem: entradas-ver-tambem,
-    num-colunas: colunas,
+    colunas: colunas,
   )
 }
 
@@ -285,7 +285,7 @@
     rotulo-tipo: "ONOMASTICO",
     entradas-ver: entradas-ver,
     entradas-ver-tambem: entradas-ver-tambem,
-    num-colunas: colunas,
+    colunas: colunas,
   )
 }
 
@@ -297,7 +297,7 @@
   indice(
     rotulo-tipo: "DE AUTORES",
     entradas-ver: entradas-ver,
-    num-colunas: colunas,
+    colunas: colunas,
   )
 }
 
@@ -311,7 +311,7 @@
     rotulo-tipo: none,
     entradas-ver: entradas-ver,
     entradas-ver-tambem: entradas-ver-tambem,
-    num-colunas: colunas,
+    colunas: colunas,
   )
 }
 

@@ -12,6 +12,18 @@
 // - Horizontal: titulo impresso horizontalmente quando o documento esta em posicao vertical
 // - Descendente: titulo impresso longitudinalmente, legivel do alto para o pe
 
+#import "../core/metadata.typ"
+
+// Converte valor para string (int/float → str, str → str, content → content)
+// Versão local para evitar problemas com metadata._str-safe em content blocks
+#let _to-str(val) = {
+  if type(val) == str { val }
+  else if type(val) == int or type(val) == float { str(val) }
+  else if val == none { "" }
+  else if type(val) == content { val }
+  else { str(val) }
+}
+
 /// Gera uma pagina de lombada para impressao separada
 ///
 /// Parametros:
@@ -46,100 +58,109 @@
     margin: 3mm,
   )
 
-  if orientacao == "descendente" {
-    // Lombada descendente - legivel do alto para o pe
-    // O texto e rotacionado 90 graus
-    set align(left + horizon)
+  context {
+    let autor = metadata._resolve(autor, "autor")
+    let titulo = metadata._resolve(titulo, "titulo")
+    let ano = metadata._resolve(ano, "ano")
+    let instituicao = metadata._resolve(instituicao, "instituicao")
+    let ano-str = if ano != none { _to-str(ano) }
+    let vol-str = if volume != none { "v. " + _to-str(volume) }
 
-    box(
-      width: 100%,
-      height: 100%,
-    )[
-      #set text(size: 10pt)
+    if orientacao == "descendente" {
+      // Lombada descendente - legivel do alto para o pe
+      // O texto e rotacionado 90 graus
+      set align(left + horizon)
 
-      // Layout horizontal (sera rotacionado na impressao)
-      #grid(
-        columns: (auto, 1fr, auto, auto),
-        gutter: 1em,
-        align: horizon,
+      box(
+        width: 100%,
+        height: 100%,
+      )[
+        #set text(size: 10pt)
+
+        // Layout horizontal (sera rotacionado na impressao)
+        #grid(
+          columns: (auto, 1fr, auto, auto),
+          gutter: 1em,
+          align: horizon,
+
+          // Autor
+          if autor != none {
+            text(weight: "bold", upper(autor))
+          },
+
+          // Titulo (centralizado, ocupa espaco restante)
+          align(center)[
+            #if titulo != none {
+              text(weight: "bold", upper(titulo))
+            }
+          ],
+
+          // Elementos alfanumericos
+          {
+            let elements = ()
+            if vol-str != none { elements.push(vol-str) }
+            if ano-str != none { elements.push(ano-str) }
+            if instituicao != none { elements.push(instituicao) }
+            elements.join(" ")
+          },
+
+          // Espaco reservado (30mm) + logo
+          box(width: espaco-reservado)[
+            #if logo != none {
+              align(center + horizon, logo)
+            }
+          ],
+        )
+      ]
+    } else {
+      // Lombada horizontal - para lombadas largas
+      set align(center + top)
+
+      box(
+        width: 100%,
+        height: 100%,
+      )[
+        #set text(size: 9pt)
 
         // Autor
         if autor != none {
-          text(weight: "bold", upper(autor))
-        },
+          text(weight: "bold", size: 10pt, upper(autor))
+          v(0.5em)
+        }
 
-        // Titulo (centralizado, ocupa espaco restante)
-        align(center)[
-          #if titulo != none {
-            text(weight: "bold", upper(titulo))
-          }
-        ],
+        v(1fr)
+
+        // Titulo
+        if titulo != none {
+          text(weight: "bold", upper(titulo))
+        }
+
+        v(1fr)
 
         // Elementos alfanumericos
         {
-          let elements = ()
-          if volume != none { elements.push("v. " + str(volume)) }
-          if ano != none { elements.push(str(ano)) }
-          if instituicao != none { elements.push(instituicao) }
-          elements.join(" ")
-        },
-
-        // Espaco reservado (30mm) + logo
-        box(width: espaco-reservado)[
-          #if logo != none {
-            align(center + horizon, logo)
+          if vol-str != none { vol-str }
+          if ano-str != none {
+            if vol-str != none { linebreak() }
+            ano-str
           }
-        ],
-      )
-    ]
-  } else {
-    // Lombada horizontal - para lombadas largas
-    set align(center + top)
+          if instituicao != none {
+            linebreak()
+            instituicao
+          }
+        }
 
-    box(
-      width: 100%,
-      height: 100%,
-    )[
-      #set text(size: 9pt)
-
-      // Autor
-      if autor != none {
-        text(weight: "bold", size: 10pt, upper(autor))
         v(0.5em)
-      }
 
-      v(1fr)
-
-      // Titulo
-      if titulo != none {
-        text(weight: "bold", upper(titulo))
-      }
-
-      v(1fr)
-
-      // Elementos alfanumericos
-      {
-        if volume != none { [v. #volume] }
-        if ano != none {
-          if volume != none { linebreak() }
-          str(ano)
+        // Logo
+        if logo != none {
+          logo
         }
-        if instituicao != none {
-          linebreak()
-          instituicao
-        }
-      }
 
-      v(0.5em)
-
-      // Logo
-      if logo != none {
-        logo
-      }
-
-      // Espaco reservado
-      v(espaco-reservado)
-    ]
+        // Espaco reservado
+        v(espaco-reservado)
+      ]
+    }
   }
 
   pagebreak()
@@ -161,63 +182,72 @@
   altura-lombada: 20cm,
   espaco-reservado: 30mm,
 ) = {
-  box(
-    width: largura-lombada,
-    height: altura-lombada,
-    stroke: 0.5pt + gray,
-    inset: 2mm,
-  )[
-    #set text(size: 8pt)
-    #set align(center)
+  context {
+    let autor = metadata._resolve(autor, "autor")
+    let titulo = metadata._resolve(titulo, "titulo")
+    let ano = metadata._resolve(ano, "ano")
+    let instituicao = metadata._resolve(instituicao, "instituicao")
+    let ano-str = if ano != none { _to-str(ano) }
+    let vol-str = if volume != none { "v. " + _to-str(volume) }
 
-    // Autor (topo)
-    if autor != none {
-      rotate(-90deg, reflow: true)[
-        #text(weight: "bold", size: 7pt, upper(autor))
-      ]
-      v(0.3em)
-    }
+    box(
+      width: largura-lombada,
+      height: altura-lombada,
+      stroke: 0.5pt + gray,
+      inset: 2mm,
+    )[
+      #set text(size: 8pt)
+      #set align(center)
 
-    v(1fr)
-
-    // Titulo (rotacionado)
-    if titulo != none {
-      rotate(-90deg, reflow: true)[
-        #text(weight: "bold", size: 8pt, upper(titulo))
-      ]
-    }
-
-    v(1fr)
-
-    // Elementos alfanumericos
-    rotate(-90deg, reflow: true)[
-      #{
-        let elements = ()
-        if volume != none { elements.push("v. " + str(volume)) }
-        if ano != none { elements.push(str(ano)) }
-        elements.join(" ")
+      // Autor (topo)
+      if autor != none {
+        rotate(-90deg, reflow: true)[
+          #text(weight: "bold", size: 7pt, upper(autor))
+        ]
+        v(0.3em)
       }
-    ]
 
-    if instituicao != none {
-      v(0.3em)
+      v(1fr)
+
+      // Titulo (rotacionado)
+      if titulo != none {
+        rotate(-90deg, reflow: true)[
+          #text(weight: "bold", size: 8pt, upper(titulo))
+        ]
+      }
+
+      v(1fr)
+
+      // Elementos alfanumericos
       rotate(-90deg, reflow: true)[
-        #text(size: 7pt, instituicao)
+        #{
+          let elements = ()
+          if vol-str != none { elements.push(vol-str) }
+          if ano-str != none { elements.push(ano-str) }
+          elements.join(" ")
+        }
       ]
-    }
 
-    v(0.5em)
+      if instituicao != none {
+        v(0.3em)
+        rotate(-90deg, reflow: true)[
+          #text(size: 7pt, instituicao)
+        ]
+      }
 
-    // Logo
-    if logo != none {
-      logo
-    }
+      v(0.5em)
 
-    // Indicador de espaco reservado
-    v(0.3em)
-    line(length: 100%, stroke: 0.3pt + gray)
-    text(size: 5pt, fill: gray)[30mm]
-  ]
+      // Logo
+      if logo != none {
+        logo
+      }
+
+      // Indicador de espaco reservado
+      v(0.3em)
+      line(length: 100%, stroke: 0.3pt + gray)
+      text(size: 5pt, fill: gray)[30mm]
+    ]
+  }
 }
 
 /// Gera texto formatado para lombada descendente
@@ -228,25 +258,33 @@
   volume: none,
   ano: none,
 ) = {
-  let parts = ()
+  context {
+    let autor = metadata._resolve(autor, "autor")
+    let titulo = metadata._resolve(titulo, "titulo")
+    let ano = metadata._resolve(ano, "ano")
+    let ano-str = if ano != none { _to-str(ano) }
+    let vol-str = if volume != none { "v. " + _to-str(volume) }
 
-  if autor != none {
-    parts.push(text(weight: "bold", upper(autor)))
+    let parts = ()
+
+    if autor != none {
+      parts.push(text(weight: "bold", upper(autor)))
+    }
+
+    if titulo != none {
+      parts.push(text(weight: "bold", upper(titulo)))
+    }
+
+    let elements = ()
+    if vol-str != none { elements.push(vol-str) }
+    if ano-str != none { elements.push(ano-str) }
+
+    if elements.len() > 0 {
+      parts.push(elements.join(" "))
+    }
+
+    parts.join(h(2em))
   }
-
-  if titulo != none {
-    parts.push(text(weight: "bold", upper(titulo)))
-  }
-
-  let elements = ()
-  if volume != none { elements.push("v. " + str(volume)) }
-  if ano != none { elements.push(str(ano)) }
-
-  if elements.len() > 0 {
-    parts.push(elements.join(" "))
-  }
-
-  parts.join(h(2em))
 }
 
 /// Titulo de margem de capa
@@ -262,15 +300,19 @@
   volume: none,
   largura-margem: 1.5cm,
 ) = {
-  box(
-    width: largura-margem,
-    height: 100%,
-  )[
-    #set align(center + horizon)
-    #rotate(-90deg, reflow: true)[
-      #set text(size: 10pt)
-      #if titulo != none { upper(titulo) }
-      #if volume != none { [ - v. #volume] }
+  context {
+    let titulo = metadata._resolve(titulo, "titulo")
+
+    box(
+      width: largura-margem,
+      height: 100%,
+    )[
+      #set align(center + horizon)
+      #rotate(-90deg, reflow: true)[
+        #set text(size: 10pt)
+        #if titulo != none { upper(titulo) }
+        #if volume != none { [ - v. #volume] }
+      ]
     ]
-  ]
+  }
 }

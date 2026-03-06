@@ -1,6 +1,7 @@
 // Template para publicacao periodica tecnica e/ou cientifica
 // Conforme NBR 6021:2015
 
+#import "../core/setup.typ": with-abnt-setup
 #import "../core/page.typ": *
 #import "../core/fonts.typ": *
 #import "../core/spacing.typ": *
@@ -44,18 +45,12 @@
     title: titulo,
   )
 
-  // Configuracao de pagina
+  show: with-abnt-setup.with(fonte: fonte, level-1-pagebreak: false)
+
+  // Paginação e legenda bibliografica no rodape (periodico-especifico)
   set page(
-    paper: "a4",
-    margin: (
-      top: 3cm,
-      bottom: 2cm,
-      left: 3cm,
-      right: 2cm,
-    ),
     numbering: "1",
     number-align: top + right,
-    // Legenda bibliografica no rodape
     footer: context {
       let abbrev-title = abbreviate-title(titulo)
       let month-text = if mes-inicio != none {
@@ -73,57 +68,6 @@
       [#abbrev-title, #local, v. #volume, n. #numero, p. #page-num, #month-text #ano.]
     },
   )
-
-  // Configuracao de fonte
-  set text(
-    font: fonte,
-    size: 12pt,
-    lang: "pt",
-    region: "BR",
-  )
-
-  // Configuracao de paragrafo
-  set par(
-    leading: 1.5em * 0.65,
-    justify: true,
-    first-line-indent: (amount: 1.25cm, all: true),
-  )
-
-  set list(indent: 2em, body-indent: 0.5em)
-  set enum(indent: 2em, body-indent: 0.5em)
-  set terms(indent: 0em, hanging-indent: 2em, separator: [: ])
-
-  // Configuracao de headings
-  show heading.where(level: 1): it => {
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 2): it => {
-    v(1em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1em)
-  }
-
-  // Excluir indentacao de containers que nao devem ser indentados
-  show heading: set par(first-line-indent: 0pt)
-  show figure: set par(first-line-indent: 0pt)
-  show raw.where(block: true): set par(first-line-indent: 0pt)
-  show outline: set par(first-line-indent: 0pt)
-  show terms: set par(first-line-indent: 0pt)
 
   body
 }

@@ -51,6 +51,7 @@
 // quando houver citacoes na apresentacao.
 
 // Core
+// setup.typ é usado internamente pelos templates — não exportado para o usuário
 #import "src/core/page.typ": *
 #import "src/core/fonts.typ": *
 #import "src/core/spacing.typ": *
@@ -58,6 +59,7 @@
 #import "src/core/proofreading.typ": *
 #import "src/core/identifiers.typ": *
 #import "src/core/dates.typ": *  // NBR 5892:2019 - Representacao de datas e horas
+#import "src/core/metadata.typ": dados
 
 // Elementos pre-textuais
 #import "src/elements/cover.typ": *

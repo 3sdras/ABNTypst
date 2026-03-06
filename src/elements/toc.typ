@@ -1,18 +1,8 @@
 // Sumário conforme NBR 6027:2012
 
-/// Configura sumário conforme ABNT
-/// - Título "SUMARIO" centralizado, negrito
-/// - Indicativos de seção alinhados à esquerda
-/// - Entradas espelham a formatação dos headings (NBR 6027/6024)
-/// - Páginas ligadas por linha pontilhada
-#let abnt-outline() = {
-  // Título
-  align(center)[
-    #text(weight: "bold", size: 12pt, "SUMÁRIO")
-  ]
-
-  v(1.5em)
-
+// Show rules para formatar entradas do sumário conforme NBR 6027/6024.
+// Compartilhado entre abnt-outline() e sumario().
+#let _abnt-outline-rules(body) = {
   // Nível 1: MAIÚSCULAS + negrito
   show outline.entry.where(level: 1): it => {
     v(0.5em)
@@ -73,6 +63,24 @@
     ]
   }
 
+  body
+}
+
+/// Configura sumário conforme ABNT
+/// - Título "SUMARIO" centralizado, negrito
+/// - Indicativos de seção alinhados à esquerda
+/// - Entradas espelham a formatação dos headings (NBR 6027/6024)
+/// - Páginas ligadas por linha pontilhada
+#let abnt-outline() = {
+  // Título
+  align(center)[
+    #text(weight: "bold", size: 12pt, "SUMÁRIO")
+  ]
+
+  v(1.5em)
+
+  show: _abnt-outline-rules
+
   outline(
     title: none,
     indent: 0pt,
@@ -90,65 +98,7 @@
 
   v(1.5em)
 
-  // Nível 1: MAIÚSCULAS + negrito (NBR 6027)
-  show outline.entry.where(level: 1): it => {
-    v(0.5em)
-    block[
-      #link(it.element.location())[
-        #text(weight: "bold")[#upper(it.body())]
-        #box(width: 1fr, it.fill)
-        #it.page()
-      ]
-    ]
-  }
-
-  // Nível 2: MAIÚSCULAS, regular
-  show outline.entry.where(level: 2): it => {
-    block[
-      #link(it.element.location())[
-        #h(1em)
-        #upper(it.body())
-        #box(width: 1fr, it.fill)
-        #it.page()
-      ]
-    ]
-  }
-
-  // Nível 3: Minúsculas + negrito
-  show outline.entry.where(level: 3): it => {
-    block[
-      #link(it.element.location())[
-        #h(2em)
-        #text(weight: "bold")[#it.body()]
-        #box(width: 1fr, it.fill)
-        #it.page()
-      ]
-    ]
-  }
-
-  // Nível 4: Minúsculas, regular
-  show outline.entry.where(level: 4): it => {
-    block[
-      #link(it.element.location())[
-        #h(3em)
-        #it.body()
-        #box(width: 1fr, it.fill)
-        #it.page()
-      ]
-    ]
-  }
-
-  // Nível 5: Minúsculas, itálico
-  show outline.entry.where(level: 5): it => {
-    block[
-      #link(it.element.location())[
-        #h(4em)
-        #text(style: "italic")[#it.body()]
-        #box(width: 1fr, it.fill)
-        #it.page()
-      ]
-    ]
-  }
+  show: _abnt-outline-rules
 
   outline(
     title: none,
@@ -226,3 +176,7 @@
 
   pagebreak()
 }
+
+// Aliases curtos
+#let siglas = lista-siglas
+#let simbolos = lista-simbolos

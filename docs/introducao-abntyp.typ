@@ -261,13 +261,15 @@ Para um documento acadêmico usando ABNTyp, o exemplo mínimo seria:
 #exemplo[
   #raw(block: true, lang: "typst", "#import \"@preview/abntyp:0.1.0\": *
 
-#show: abntcc.with(
+#show: dados.with(
   titulo: \"Meu Trabalho Acadêmico\",
   autor: \"Maria da Silva\",
   instituicao: \"Universidade Federal\",
   local: \"Cidade\",
   ano: 2026,
 )
+
+#show: abntcc.with()
 
 = Introdução
 
@@ -282,7 +284,7 @@ Este é o desenvolvimento do trabalho.
 Esta é a conclusão.")
 ]
 
-O comando `#show: abntcc.with(...)` aplica o template de trabalho acadêmico a todo o documento, configurando automaticamente margens, fontes, espaçamentos e numeração de seções.
+O comando `#show: dados.with(...)` armazena os metadados do trabalho, e `#show: abntcc.with()` aplica a formatação ABNT (margens, fontes, espaçamentos, numeração de seções). Os elementos pré-textuais (`#capa()`, `#folha-rosto()`, `#resumo()`) leem os dados automaticamente.
 
 == Estrutura de um documento Typst
 
@@ -484,7 +486,17 @@ A capa é elemento obrigatório e deve conter:
 - Local (cidade)
 - Ano
 
-No ABNTyp, a capa é criada com a função `#capa()`:
+No ABNTyp, a capa é criada com a função `#capa()`. Se os metadados foram definidos via `#show: dados.with(...)`, basta chamar `#capa()` sem parâmetros:
+
+#exemplo[
+  #raw(block: true, lang: "typst", "// Se dados() já foi chamado, basta:
+#capa()
+
+// Ou com override parcial:
+#capa(titulo: \"Título alternativo na capa\")")
+]
+
+Também é possível passar todos os parâmetros explicitamente:
 
 #exemplo[
   #raw(block: true, lang: "typst", "#capa(
@@ -507,20 +519,16 @@ A folha de rosto contém os mesmos elementos da capa, acrescidos de:
 - Nome do orientador
 - Nome do coorientador (se houver)
 
+Assim como a capa, lê do state quando os parâmetros são omitidos:
+
 #exemplo[
-  #raw(block: true, lang: "typst", "#folha-rosto(
-  autor: \"Maria da Silva\",
-  titulo: \"Análise de Algoritmos de Ordenação\",
-  subtitulo: \"Um estudo comparativo\",
-  natureza: \"Dissertação apresentada ao Programa de Pós-Graduação
-    em Ciência da Computação da Universidade Federal de Jataí\",
-  objetivo: \"como requisito parcial para obtenção do título
-    de Mestre em Ciência da Computação.\",
-  area: \"Algoritmos e Estruturas de Dados\",
-  orientador: \"Prof. Dr. João Santos\",
-  coorientador: \"Profa. Dra. Ana Costa\",  // opcional
-  local: \"Jataí\",
-  ano: 2026,
+  #raw(block: true, lang: "typst", "// Se dados() já foi chamado:
+#folha-rosto()
+
+// Ou com override parcial:
+#folha-rosto(
+  orientador: \"Prof. Dr. Orientador Alternativo\",
+  area: \"Outra Área\",
 )")
 ]
 
@@ -634,9 +642,8 @@ A epígrafe é uma citação relacionada ao conteúdo do trabalho:
 O resumo deve apresentar de forma concisa os pontos relevantes do trabalho. Conforme a NBR 6028:2021, deve ter entre 150 e 500 palavras para trabalhos acadêmicos.
 
 #exemplo[
-  #raw(block: true, lang: "typst", "#resumo(
-  palavras-chave: (\"Algoritmos\", \"Ordenação\", \"Complexidade\", \"Análise\"),
-)[
+  #raw(block: true, lang: "typst", "// Se palavras-chave foram definidas em dados(), basta:
+#resumo[
   Este trabalho apresenta um estudo comparativo de algoritmos
   de ordenação, analisando sua complexidade temporal e espacial.
   Foram avaliados os algoritmos Quicksort, Mergesort, Heapsort
@@ -647,9 +654,8 @@ O resumo deve apresentar de forma concisa os pontos relevantes do trabalho. Conf
   deve considerar as características dos dados de entrada.
 ]
 
-#resumo-en(
-  palavras-chave: (\"Algorithms\", \"Sorting\", \"Complexity\", \"Analysis\"),
-)[
+// Idem para o abstract:
+#resumo-en[
   This work presents a comparative study of sorting algorithms,
   analyzing their time and space complexity. The Quicksort,
   Mergesort, Heapsort and Timsort algorithms were evaluated in
@@ -766,14 +772,21 @@ A NBR 10520:2023 estabelece as regras para citações em documentos. A seção 4
 Citações diretas de até três linhas são inseridas no texto entre aspas duplas:
 
 #exemplo[
-  #raw(block: true, lang: "typst", "Conforme o autor, #citacao-curta(
-  \"a formatação adequada é essencial para a clareza\",
-  autor: \"SILVA\",
-  ano: \"2023\",
-  pagina: \"42\"
-).")
+  #raw(block: true, lang: "typst", "// Forma posicional (autor, ano, página):
+Conforme o autor, #citacao-curta(\"SILVA\", 2023,
+  42)[a formatação adequada é essencial para a clareza].
 
-  Resultado: Conforme o autor, "a formatação adequada é essencial para a clareza" (SILVA, 2023, p. 42).
+// Forma nomeada (equivalente):
+Conforme o autor, #citacao-curta(autor: \"SILVA\", ano: 2023,
+  pagina: 42)[a formatação adequada é essencial para a clareza].
+
+// Sem referência (apenas aspas):
+A expressão #citacao-curta()[sic transit gloria mundi] é conhecida.
+
+// Nota: ano e página aceitam int (sem aspas) ou string.
+// Para intervalos de páginas, use string: pagina: \"42-43\"")
+
+  Resultado: Conforme o autor, \u{201C}a formatação adequada é essencial para a clareza\u{201D} (SILVA, 2023, p. 42).
 ]
 
 === Citação direta longa
@@ -781,17 +794,20 @@ Citações diretas de até três linhas são inseridas no texto entre aspas dupl
 Citações com mais de três linhas devem ser destacadas com recuo de 4 cm, fonte menor e espaçamento simples:
 
 #exemplo[
-  #raw(block: true, lang: "typst", "#citacao-longa(
-  autor: \"SILVA\",
-  ano: \"2023\",
-  pagina: \"42-43\"
-)[
+  #raw(block: true, lang: "typst", "// Forma posicional:
+#citacao-longa(\"SILVA\", 2023, \"42-43\")[
   A formatação adequada dos trabalhos acadêmicos é
   essencial para a clareza e a credibilidade da
   comunicação científica. As normas ABNT estabelecem
   padrões que facilitam a leitura e a compreensão
   dos textos, além de uniformizar a apresentação
   dos documentos técnicos e científicos no Brasil.
+]
+
+// Forma nomeada (equivalente):
+#citacao-longa(autor: \"SILVA\", ano: 2023,
+  pagina: \"42-43\")[
+  Texto longo da citação...
 ]")
 ]
 
@@ -801,19 +817,19 @@ No sistema autor-data, a indicação da fonte é feita pelo sobrenome do autor e
 
 #exemplo[
   #raw(block: true, lang: "typst", "// Autor no texto
-Segundo #citar-autor(\"Silva\", \"2023\"), a metodologia...
+Segundo #citar-autor(\"Silva\", 2023), a metodologia...
 
 // Autor entre parênteses
-A metodologia é importante #citar(\"SILVA\", \"2023\", pagina: \"45\").
+A metodologia é importante #citar(\"SILVA\", 2023, pagina: 45).
 
 // Múltiplos autores (até 3)
-Conforme #citar(\"SILVA; SANTOS; COSTA\", \"2023\")...
+Conforme #citar(\"SILVA; SANTOS; COSTA\", 2023)...
 
 // Mais de 3 autores (et al.)
-De acordo com #citar(\"SILVA et al.\", \"2023\")...
+De acordo com #citar(\"SILVA et al.\", 2023)...
 
 // Citação de citação (apud)
-#citar-apud(\"FREUD\", \"1900\", \"LACAN\", \"1966\", pagina: \"123\")")
+#citar-apud(\"FREUD\", 1900, \"LACAN\", 1966, pagina: 123)")
 
   Resultados:
 
@@ -1550,7 +1566,8 @@ O ABNTyp oferece templates para diversos tipos de documentos acadêmicos e técn
 
 O template `abntcc` é o mais completo, seguindo a NBR 14724:2024:
 
-#raw(block: true, lang: "typst", "#show: abntcc.with(
+#raw(block: true, lang: "typst", "// 1. Metadados
+#show: dados.with(
   titulo: \"Título do Trabalho\",
   subtitulo: \"Subtítulo (se houver)\",
   autor: \"Nome do Autor\",
@@ -1565,8 +1582,19 @@ O template `abntcc` é o mais completo, seguindo a NBR 14724:2024:
   coorientador: \"Profa. Dra. Nome\",
   palavras-chave: (\"Palavra1\", \"Palavra2\"),
   palavras-chave-en: (\"Keyword1\", \"Keyword2\"),
+)
+
+// 2. Formatação ABNT
+#show: abntcc.with(
   fonte: \"Times New Roman\",  // ou \"Arial\"
-)")
+)
+
+// 3. Elementos pré-textuais — leem do state
+#capa()
+#folha-rosto()
+#resumo[...]
+#resumo-en[...]
+#sumario()")
 
 == Artigo científico
 
@@ -1654,7 +1682,7 @@ O template `poster` segue a NBR 15437:2006:
   autores: ((name: \"Autor\", affiliation: \"Instituição\"),),
   texto-resumo: [Resumo em até 100 palavras...],
   palavras-chave: (\"palavra1\", \"palavra2\"),
-  num-colunas: 3,
+  colunas: 3,
   largura: 90cm,
   altura: 120cm,
 )
@@ -1822,9 +1850,9 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
     table.hline(stroke: 1pt),
     [*abnTeX2 (LaTeX)*], [*ABNTyp (Typst)*],
     table.hline(stroke: 0.5pt),
-    [#raw("\\documentclass{abntex2}")], [#raw("#show: abntcc.with(..)")],
-    [#raw("\\imprimircapa")], [#raw("#capa(..)")],
-    [#raw("\\imprimirfolhaderosto")], [#raw("#folha-rosto(..)")],
+    [#raw("\\documentclass{abntex2}")], [#raw("#show: dados.with(..)") + linebreak() + #raw("#show: abntcc.with()")],
+    [#raw("\\imprimircapa")], [#raw("#capa()")],
+    [#raw("\\imprimirfolhaderosto")], [#raw("#folha-rosto()")],
     [#raw("\\begin{resumo}...\\end{resumo}")], [#raw("#resumo(..)[...]")],
     [#raw("\\begin{abstract}...\\end{abstract}")], [#raw("#resumo-en(..)[...]")],
     [#raw("\\pdfbookmark{Sumário}{toc}\\tableofcontents")], [#raw("#sumario()")],
@@ -1885,6 +1913,46 @@ Este apêndice é destinado a usuários que já conhecem LaTeX e desejam migrar 
 - *Typst LSP* (VS Code): #link("https://marketplace.visualstudio.com/items?itemName=nvarner.typst-lsp")
 - *Typst Preview* (VS Code): #link("https://marketplace.visualstudio.com/items?itemName=mgt19937.typst-preview")
 - *Tinymist* (language server): #link("https://github.com/Enter-tainer/tinymist")
+
+== Aliases (nomes curtos)
+
+Todas as funções principais do ABNTyp possuem _aliases_ --- nomes curtos equivalentes. Ambas as formas são válidas e produzem o mesmo resultado:
+
+#figure(
+  table(
+    columns: (1fr, auto),
+    stroke: none,
+    inset: 6pt,
+    table.hline(stroke: 1pt),
+    [*Função completa*], [*Alias*],
+    table.hline(stroke: 0.5pt),
+    [`citacao-curta`], [`ccurta`],
+    [`citacao-longa`], [`clonga`],
+    [`citar-autor`], [`cautor`],
+    [`citar-apud`], [`capud`],
+    [`citar-multiplos`], [`cmultiplos`],
+    [`citar-etal`], [`cetal`],
+    [`folha-rosto`], [`rosto`],
+    [`ficha-catalografica`], [`ficha`],
+    [`dedicatoria`], [`dedica`],
+    [`agradecimentos`], [`agradece`],
+    [`lista-siglas`], [`siglas`],
+    [`lista-simbolos`], [`simbolos`],
+    [`interpolacao`], [`interp`],
+    [`grifo-nosso`], [`gnosso`],
+    [`grifo-do-autor`], [`gautor`],
+    [`citar-num`], [`cnum`],
+    [`citar-num-multiplos`], [`cnmultiplos`],
+    [`citacao-num-curta`], [`cncurta`],
+    [`citacao-num-longa`], [`cnlonga`],
+    [`bibliografia-numerica`], [`bibnum`],
+    table.hline(stroke: 1pt),
+  ),
+  caption: [Aliases disponíveis no ABNTyp],
+  kind: table,
+)
+
+Por exemplo, `#ccurta("Silva", 2023, 42)[texto]` é idêntico a `#citacao-curta("Silva", 2023, 42)[texto]`.
 
 #pagebreak()
 

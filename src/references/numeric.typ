@@ -516,3 +516,12 @@
     _numeric-counter.get()
   }
 }
+
+// Aliases curtos
+#let cnum = citar-num
+#let cnlinha = citar-num-linha
+#let cnmultiplos = citar-num-multiplos
+#let cnapud = citar-num-apud
+#let cncurta = citacao-num-curta
+#let cnlonga = citacao-num-longa
+#let bibnum = bibliografia-numerica

@@ -1,5 +1,7 @@
 // Resumo e Abstract conforme NBR 6028:2021
 
+#import "../core/metadata.typ"
+
 /// Cria página de resumo conforme ABNT
 /// - titulo: "RESUMO" ou "ABSTRACT"
 /// - conteudo: texto do resumo (150-500 palavras para trabalhos acadêmicos)
@@ -39,23 +41,29 @@
 }
 
 /// Resumo em português
-#let resumo(conteudo, palavras-chave: ()) = {
-  abstract-page(
-    titulo: "RESUMO",
-    conteudo: conteudo,
-    palavras-chave: palavras-chave,
-    rotulo-palavras-chave: "Palavras-chave",
-  )
+#let resumo(conteudo, palavras-chave: none) = {
+  context {
+    let kw = metadata._resolve(palavras-chave, "palavras-chave", fallback: ())
+    abstract-page(
+      titulo: "RESUMO",
+      conteudo: conteudo,
+      palavras-chave: kw,
+      rotulo-palavras-chave: "Palavras-chave",
+    )
+  }
 }
 
 /// Abstract em inglês
-#let resumo-en(conteudo, palavras-chave: ()) = {
-  abstract-page(
-    titulo: "ABSTRACT",
-    conteudo: conteudo,
-    palavras-chave: palavras-chave,
-    rotulo-palavras-chave: "Keywords",
-  )
+#let resumo-en(conteudo, palavras-chave: none) = {
+  context {
+    let kw = metadata._resolve(palavras-chave, "palavras-chave-en", fallback: ())
+    abstract-page(
+      titulo: "ABSTRACT",
+      conteudo: conteudo,
+      palavras-chave: kw,
+      rotulo-palavras-chave: "Keywords",
+    )
+  }
 }
 
 /// Resumo em língua estrangeira (genérico)

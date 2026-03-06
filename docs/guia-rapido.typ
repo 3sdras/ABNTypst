@@ -26,35 +26,22 @@ Coloque a pasta `abntyp` no seu projeto e importe:
 == Documento Básico
 
 ```typst
-#show: abntcc.with(
+#show: dados.with(
   titulo: "Título",
   autor: "Seu Nome",
   instituicao: "Universidade",
   local: "Cidade",
   ano: 2026,
   orientador: "Prof. Dr. Nome",
+  palavras-chave: ("A", "B"),
 )
 
-#capa(
-  instituicao: "Universidade",
-  autor: "Seu Nome",
-  titulo: "Título",
-  local: "Cidade",
-  ano: 2026,
-)
+#show: abntcc.with()
 
-#folha-rosto(
-  autor: "Seu Nome",
-  titulo: "Título",
-  natureza: "Dissertação...",
-  orientador: "Prof. Dr. Nome",
-  local: "Cidade",
-  ano: 2026,
-)
+#capa()
+#folha-rosto()
 
-#resumo(palavras-chave: ("A", "B"))[
-  Texto do resumo...
-]
+#resumo[Texto do resumo...]
 
 #sumario()
 
@@ -66,6 +53,11 @@ Coloque a pasta `abntyp` no seu projeto e importe:
 
 Texto...
 ```
+
+A função `dados()` armazena os metadados
+e `abntcc()` aplica a formatação ABNT.
+Os elementos `capa()`, `folha-rosto()` e
+`resumo()` leem tudo automaticamente.
 
 == Seções (NBR 6024)
 
@@ -81,19 +73,21 @@ Texto...
 
 *Citação curta (até 3 linhas):*
 ```typst
-Conforme o autor,
-#citacao-curta("texto",
-  autor: "SILVA",
-  ano: "2023",
-  pagina: "42").
+// Posicional (ano e página sem aspas):
+#citacao-curta("SILVA", 2023, 42)[
+  texto da citação].
+
+// Nomeado:
+#citacao-curta(autor: "SILVA",
+  ano: 2023)[texto da citação].
+
+// Sem referência:
+#citacao-curta()[sic transit gloria mundi]
 ```
 
 *Citação longa (mais de 3 linhas):*
 ```typst
-#citacao-longa(
-  autor: "SILVA",
-  ano: "2023",
-)[
+#citacao-longa("SILVA", 2023)[
   Texto longo da citação
   com mais de três linhas...
 ]
@@ -102,10 +96,10 @@ Conforme o autor,
 *Sistema autor-data:*
 ```typst
 // No texto
-Segundo #citar-autor("Silva", "2023")
+Segundo #citar-autor("Silva", 2023)
 
 // Entre parênteses
-#citar("SILVA", "2023", pagina: "42")
+#citar("SILVA", 2023, pagina: 45)
 ```
 
 == Figuras, tabelas e quadros
@@ -157,7 +151,7 @@ A função `#figure()` é nativa do Typst e serve como contêiner genérico para
 // Epígrafe
 #epigrafe(
   "Citação inspiradora",
-  "Autor"
+  "Autor",
 )
 
 // Listas
@@ -188,10 +182,7 @@ São Paulo: Editora, 2023.
 
 *Fonte Arial:*
 ```typst
-#show: abntcc.with(
-  fonte: "Arial",
-  // ...
-)
+#show: abntcc.with(fonte: "Arial")
 ```
 
 *Margens padrão:*
@@ -205,6 +196,30 @@ São Paulo: Editora, 2023.
 - Citação longa: simples
 - Recuo parágrafo: 1,25 cm
 - Citação longa: 4 cm
+
+== Aliases (nomes curtos)
+
+Todas as funções principais possuem aliases curtos. Use qualquer uma das formas:
+
+```
+citacao-curta → ccurta
+citacao-longa → clonga
+citar-autor   → cautor
+citar-apud    → capud
+citar-multiplos → cmultiplos
+citar-etal    → cetal
+folha-rosto   → rosto
+ficha-catalografica → ficha
+dedicatoria   → dedica
+agradecimentos → agradece
+lista-siglas  → siglas
+lista-simbolos → simbolos
+citar-num     → cnum
+citar-num-multiplos → cnmultiplos
+citacao-num-curta → cncurta
+citacao-num-longa → cnlonga
+bibliografia-numerica → bibnum
+```
 
 == Normas Implementadas
 

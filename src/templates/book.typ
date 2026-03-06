@@ -1,6 +1,7 @@
 // Template para livros e folhetos conforme NBR 6029:2023
 // Informacao e documentacao - Livros e folhetos - Apresentacao
 
+#import "../core/setup.typ": with-abnt-setup
 #import "../core/page.typ": *
 #import "../core/fonts.typ": *
 #import "../core/spacing.typ": *
@@ -41,16 +42,10 @@
     author: autor,
   )
 
-  // Configuracao de pagina
+  show: with-abnt-setup.with(fonte: fonte)
+
+  // Titulo corrente no alto da mancha (livro-especifico)
   set page(
-    paper: "a4",
-    margin: (
-      top: 3cm,
-      bottom: 2cm,
-      left: 3cm,
-      right: 2cm,
-    ),
-    // Titulo corrente no alto da mancha
     header: context {
       if cabecalho != none {
         let page-num = counter(page).get().first()
@@ -69,28 +64,7 @@
     },
   )
 
-  // Configuracao de fonte
-  set text(
-    font: fonte,
-    size: 12pt,
-    lang: "pt",
-    region: "BR",
-  )
-
-  // Configuracao de paragrafo
-  set par(
-    leading: 1.5em * 0.65,
-    justify: true,
-    first-line-indent: (amount: 1.25cm, all: true),
-  )
-
-  set list(indent: 2em, body-indent: 0.5em)
-  set enum(indent: 2em, body-indent: 0.5em)
-  set terms(indent: 0em, hanging-indent: 2em, separator: [: ])
-
-  // Configuracao de headings com numeracao progressiva
-  set heading(numbering: "1.1")
-
+  // Livros usam 14pt para heading level 1 (diferente do padrão 12pt)
   show heading.where(level: 1): it => {
     pagebreak(weak: true)
     v(1.5em)
@@ -103,66 +77,6 @@
     ]
     v(1.5em)
   }
-
-  show heading.where(level: 2): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 3): it => {
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1em)
-  }
-
-  show heading.where(level: 4): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1em)
-  }
-
-  show heading.where(level: 5): it => {
-    v(1.5em)
-    text(weight: "regular", style: "italic", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1em)
-  }
-
-  // Excluir indentacao de containers que nao devem ser indentados
-  show heading: set par(first-line-indent: 0pt)
-  show figure: set par(first-line-indent: 0pt)
-  show raw.where(block: true): set par(first-line-indent: 0pt)
-  show outline: set par(first-line-indent: 0pt)
-  show terms: set par(first-line-indent: 0pt)
-
-  // Notas de rodape
-  set footnote.entry(
-    separator: line(length: 5cm, stroke: 0.5pt),
-  )
 
   body
 }
@@ -519,14 +433,14 @@
 
 /// Epigrafe
 /// Conforme NBR 6029:2023 - pagina impar
-#let book-epigraph(quote, autor) = {
+#let book-epigraph(citacao, autor) = {
   set page(numbering: none)
   v(1fr)
   align(right)[
     #box(width: 50%)[
       #set par(first-line-indent: 0pt)
       #set text(size: 11pt, style: "italic")
-      "#quote"
+      \u{201C}#citacao\u{201D}
       #linebreak()
       #set text(style: "normal")
       [(#autor)]

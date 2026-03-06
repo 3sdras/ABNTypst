@@ -165,10 +165,13 @@ Quando publicado no repositório oficial do Typst:
 
 == Documento Mínimo
 
+O fluxo recomendado separa metadados (`dados()`) e formatação (`abntcc()`). Os elementos pré-textuais leem tudo automaticamente do state:
+
 ```typst
 #import "abntyp/lib.typ": *
 
-#show: abntcc.with(
+// 1. Metadados — armazenados no state
+#show: dados.with(
   titulo: "Uma proposta de pacote para normas ABNT em Typst",
   subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
   autor: "Cláudio Código",
@@ -178,31 +181,23 @@ Quando publicado no repositório oficial do Typst:
   local: "Jataí",
   ano: 2026,
   orientador: "Prof. Dr. Esdras Teixeira Costa",
+  palavras-chave: ("Palavra1", "Palavra2", "Palavra3"),
+  palavras-chave-en: ("Keyword1", "Keyword2", "Keyword3"),
 )
 
-#capa(
-  instituicao: "Universidade Federal de Jataí",
-  faculdade: "Instituto de Ciências Exatas e Tecnológicas",
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-  local: "Jataí",
-  ano: 2026,
-)
+// 2. Formatação ABNT
+#show: abntcc.with()
 
-#folha-rosto(
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-  natureza: "Dissertação apresentada ao PROFMAT da Universidade Federal de Jataí",
-  objetivo: "como requisito parcial para obtenção do título de Mestre.",
-  orientador: "Prof. Dr. Esdras Teixeira Costa",
-  local: "Jataí",
-  ano: 2026,
-)
+// 3. Elementos pré-textuais — leem do state
+#capa()
+#folha-rosto()
 
-#resumo(palavras-chave: ("Palavra1", "Palavra2", "Palavra3"))[
+#resumo[
   Texto do resumo...
+]
+
+#resumo-en[
+  Abstract text...
 ]
 
 #sumario()
@@ -224,11 +219,73 @@ Conclusão do trabalho...
 // Lista de referências...
 ```
 
+*Override parcial:* qualquer elemento aceita parâmetros explícitos que sobrescrevem o state:
+
+```typst
+// Capa com título diferente, resto do state
+#capa(titulo: "Título Alternativo")
+
+// Resumo com palavras-chave sobrescritas
+#resumo(palavras-chave: ("Outra1", "Outra2"))[...]
+```
+
 = Referência dos Módulos
 
 == Core (Núcleo)
 
 Os módulos core definem as configurações básicas de formatação.
+
+=== metadata.typ - Metadados do Documento
+
+A função `dados()` armazena os metadados do trabalho em um state compartilhado. Os elementos pré-textuais (`capa()`, `folha-rosto()`, `resumo()`, `lombada()`, etc.) leem automaticamente desse state, evitando repetição de dados.
+
+*Função principal:*
+
+```typst
+#let dados(
+  titulo: none,
+  subtitulo: none,
+  autor: none,
+  autores: none,        // Array de dicts (para templates multi-autor)
+  instituicao: none,
+  faculdade: none,
+  programa: none,
+  local: none,
+  ano: none,            // Int ou string
+  natureza: none,
+  objetivo: none,
+  area: none,
+  orientador: none,
+  coorientador: none,
+  palavras-chave: none,
+  palavras-chave-en: none,
+  body,
+)
+```
+
+*Uso recomendado (via show rule):*
+
+```typst
+#show: dados.with(
+  titulo: "Meu Trabalho",
+  autor: "Maria da Silva",
+  // ...
+)
+```
+
+*Uso standalone (sem show rule):*
+
+```typst
+#dados(
+  titulo: "Relatório",
+  autor: "João Santos",
+  // ...
+)
+```
+
+`dados()` também configura os metadados do PDF (`set document(title: ..., author: ...)`).
+
+Parâmetros desconhecidos geram erro com `panic()`.
 
 === page.typ - Configuração de Página
 
@@ -659,7 +716,7 @@ CIÊNCIA DA INFORMAÇÃO. Brasília: IBICT, 1972-. #ref-issn("0100-1965")
 
 === cover.typ - Capa
 
-Cria a capa do trabalho conforme NBR 14724.
+Cria a capa do trabalho conforme NBR 14724. Todos os parâmetros são opcionais --- se omitidos, são lidos automaticamente do state definido por `dados()`.
 
 ```typst
 #let capa(
@@ -670,17 +727,31 @@ Cria a capa do trabalho conforme NBR 14724.
   titulo: none,       // Título do trabalho
   subtitulo: none,    // Subtítulo (opcional)
   local: none,        // Cidade
-  ano: none,          // Ano
+  ano: none,          // Ano (int ou string)
 )
 ```
 
-*Exemplo:*
+*Exemplo com `dados()` (recomendado):*
+
+```typst
+// Metadados já definidos via dados() — capa lê do state
+#capa()
+```
+
+*Exemplo com override parcial:*
+
+```typst
+// Título diferente na capa, resto do state
+#capa(titulo: "Título Alternativo na Capa")
+```
+
+*Exemplo com todos os parâmetros explícitos:*
 
 ```typst
 #capa(
   instituicao: "Universidade Federal de Jataí",
   faculdade: "Instituto de Ciências Exatas e Tecnológicas",
-  programa: "PROFMAT - Programa de Mestrado Profissional em Rede em Matemática",
+  programa: "PROFMAT",
   autor: "Cláudio Código",
   titulo: "Uma proposta de pacote para normas ABNT em Typst",
   subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
@@ -691,7 +762,7 @@ Cria a capa do trabalho conforme NBR 14724.
 
 === title-page.typ - Folha de Rosto
 
-Cria a folha de rosto conforme NBR 14724.
+Cria a folha de rosto conforme NBR 14724. Todos os parâmetros são opcionais --- se omitidos, são lidos do state definido por `dados()`.
 
 ```typst
 #let folha-rosto(
@@ -705,23 +776,24 @@ Cria a folha de rosto conforme NBR 14724.
   orientador: none,   // Orientador
   coorientador: none, // Coorientador
   local: none,        // Cidade
-  ano: none,          // Ano
+  ano: none,          // Ano (int ou string)
 )
 ```
 
-*Exemplo:*
+*Exemplo com `dados()` (recomendado):*
 
 ```typst
+// Lê tudo do state
+#folha-rosto()
+```
+
+*Exemplo com override parcial:*
+
+```typst
+// Orientador e área diferentes, resto do state
 #folha-rosto(
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-  natureza: "Dissertação apresentada ao PROFMAT - Programa de Mestrado Profissional em Rede em Matemática do Instituto de Ciências Exatas e Tecnológicas da Universidade Federal de Jataí",
-  objetivo: "como requisito parcial para obtenção do título de Mestre.",
-  area: "Matemática",
-  orientador: "Prof. Dr. Esdras Teixeira Costa",
-  local: "Jataí",
-  ano: 2026,
+  orientador: "Prof. Dr. Orientador Alternativo",
+  area: "Álgebra Computacional",
 )
 ```
 
@@ -733,14 +805,14 @@ Cria a folha de rosto conforme NBR 14724.
 
 === abstract.typ - Resumo e Abstract
 
-Cria páginas de resumo conforme NBR 6028.
+Cria páginas de resumo conforme NBR 6028. Se `palavras-chave` não for passado, lê automaticamente do state definido por `dados()`.
 
 ```typst
 // Resumo em português
-#let resumo(conteudo, palavras-chave: ())
+#let resumo(palavras-chave: none, body)
 
 // Abstract em inglês
-#let resumo-en(conteudo, palavras-chave: ())
+#let resumo-en(palavras-chave: none, body)
 
 // Resumo em outra língua
 #let foreign-abstract(
@@ -751,19 +823,26 @@ Cria páginas de resumo conforme NBR 6028.
 )
 ```
 
-*Exemplo:*
+*Exemplo com `dados()` (recomendado):*
+
+```typst
+// Palavras-chave vêm automaticamente do state
+#resumo[
+  Texto do resumo...
+]
+
+#resumo-en[
+  Abstract text...
+]
+```
+
+*Exemplo com palavras-chave explícitas (override):*
 
 ```typst
 #resumo(
-  palavras-chave: ("ABNT", "Typst", "Formatação", "Trabalho acadêmico"),
+  palavras-chave: ("ABNT", "Typst", "Formatação"),
 )[
-  Este trabalho apresenta o desenvolvimento do pacote ABNTyp para formatação de documentos acadêmicos conforme as normas da ABNT, utilizando o sistema de composição tipográfica Typst. O objetivo é fornecer uma alternativa moderna e acessível para a produção de trabalhos acadêmicos no Brasil...
-]
-
-#resumo-en(
-  palavras-chave: ("ABNT", "Typst", "Formatting", "Academic work"),
-)[
-  This work presents the development of the ABNTyp package for formatting academic documents according to ABNT standards, using the Typst typesetting system. The objective is to provide a modern and accessible alternative for the production of academic works in Brazil...
+  Texto do resumo...
 ]
 ```
 
@@ -864,28 +943,48 @@ Formata citações conforme NBR 10520.
 *Citação direta curta (até 3 linhas):*
 
 ```typst
-#let citacao-curta(texto, autor: none, ano: none, pagina: none)
+#let citacao-curta(autor: none, ano: none, pagina: none, ..args)
 ```
 
-*Exemplo:*
+Aceita parâmetros posicionais (autor, ano, página) ou nomeados. Os parâmetros `ano` e `pagina` aceitam int (sem aspas) ou string:
+
+*Exemplos:*
 ```typst
-Conforme o autor, #citacao-curta("a formatação adequada é essencial", autor: "SILVA", ano: "2023", pagina: "42").
+// Posicional (ano e página sem aspas)
+#citacao-curta("SILVA", 2023, 42)[a formatação adequada é essencial].
+
+// Nomeado
+#citacao-curta(autor: "SILVA", ano: 2023, pagina: 42)[a formatação adequada é essencial].
+
+// Intervalo de páginas (string)
+#citacao-curta("SILVA", 2023, "42-43")[texto].
+
+// Sem referência
+#citacao-curta()[sic transit gloria mundi]
 ```
 
 *Citação direta longa (mais de 3 linhas):*
 
 ```typst
-#let citacao-longa(body, autor: none, ano: none, pagina: none)
+#let citacao-longa(autor: none, ano: none, pagina: none, ..args)
 ```
 
-*Exemplo:*
+Mesma flexibilidade de parâmetros:
+
+*Exemplos:*
 ```typst
-#citacao-longa(autor: "SILVA", ano: "2023", pagina: "42-43")[
-  A formatação adequada dos trabalhos acadêmicos é essencial para a clareza e a credibilidade da comunicação científica. As normas ABNT estabelecem padrões que facilitam a leitura e a compreensão dos textos.
+// Posicional
+#citacao-longa("SILVA", 2023, "42-43")[
+  Texto longo da citação...
+]
+
+// Nomeado
+#citacao-longa(autor: "SILVA", ano: 2023)[
+  Texto longo da citação...
 ]
 ```
 
-*Citações indiretas:*
+*Citações indiretas (ano e pagina aceitam int ou string):*
 
 ```typst
 // Citação com autor no texto: "Segundo Silva (2023)..."
@@ -1059,7 +1158,7 @@ Outros autores @santos2022[p. 45] concordam.
 
 === citation.typ - Citações e Referências
 
-Funções auxiliares para o sistema autor-data conforme NBR 6023 e NBR 10520.
+Funções auxiliares para o sistema autor-data conforme NBR 6023 e NBR 10520. Em todas, `ano` e `pagina` aceitam int ou string.
 
 ```typst
 // Citação autor-data básica
@@ -1081,7 +1180,7 @@ Funções auxiliares para o sistema autor-data conforme NBR 6023 e NBR 10520.
 #let citar-titulo(titulo, ano, pagina: none)
 ```
 
-*Formatação manual de referências:*
+*Formatação manual de referências (`ano`, `edicao`, `volume`, `numero` aceitam int):*
 
 ```typst
 // Livro
@@ -1089,10 +1188,10 @@ Funções auxiliares para o sistema autor-data conforme NBR 6023 e NBR 10520.
   autor: none,
   titulo: none,
   subtitulo: none,
-  edicao: none,
+  edicao: none,    // int ou string
   local: none,
   editora: none,
-  ano: none,
+  ano: none,       // int ou string
 )
 
 // Artigo de periódico
@@ -1123,26 +1222,31 @@ Funções auxiliares para o sistema autor-data conforme NBR 6023 e NBR 10520.
 
 === thesis.typ - Tese/Dissertação/TCC
 
-Template completo para trabalhos acadêmicos.
+Template completo para trabalhos acadêmicos. Os metadados são definidos separadamente com `dados()`:
 
 ```typst
+// 1. Metadados
+#show: dados.with(
+  titulo: "Título do Trabalho",
+  subtitulo: none,
+  autor: "Nome do Autor",
+  instituicao: "Universidade Federal",
+  faculdade: "Instituto/Faculdade",
+  programa: "Programa de Pós-Graduação",
+  local: "Cidade",
+  ano: 2026,
+  natureza: "Dissertação apresentada ao...",
+  objetivo: "como requisito parcial para...",
+  area: "Área de Concentração",
+  orientador: "Prof. Dr. Nome",
+  coorientador: none,
+  palavras-chave: ("Palavra1", "Palavra2"),
+  palavras-chave-en: ("Keyword1", "Keyword2"),
+)
+
+// 2. Formatação ABNT (só recebe fonte)
 #show: abntcc.with(
-  titulo: "",          // Título
-  subtitulo: none,     // Subtítulo
-  autor: "",           // Autor
-  instituicao: "",     // Instituição
-  faculdade: none,     // Faculdade
-  programa: none,      // Programa
-  local: "",           // Cidade
-  ano: 2026,           // Ano
-  natureza: none,      // Natureza
-  objetivo: none,      // Objetivo
-  area: none,          // Área
-  orientador: none,    // Orientador
-  coorientador: none,  // Coorientador
-  palavras-chave: (),  // Palavras-chave
-  palavras-chave-en: (),  // Keywords
-  fonte: "Times New Roman",
+  fonte: "Times New Roman",  // ou "Arial"
 )
 ```
 
@@ -1156,7 +1260,7 @@ Template completo para trabalhos acadêmicos.
 #let agradecimentos(content)
 
 // Epígrafe
-#let epigrafe(quote, author)
+#let epigrafe(citacao, autor)
 ```
 
 === article.typ - Artigo Científico
@@ -1551,7 +1655,7 @@ Template para pôsteres técnicos e científicos.
   contato: none,       // Contato
   texto-resumo: none,  // Resumo (até 100 palavras)
   palavras-chave: (),  // Palavras-chave
-  num-colunas: 3,      // Número de colunas
+  colunas: 3,           // Número de colunas
   largura: 90cm,       // Largura do pôster
   altura: 120cm,       // Altura do pôster
   fonte: "Arial",
@@ -1634,7 +1738,7 @@ O #idx("algoritmo", subtermo: "de ordenação")[Quicksort] é eficiente...
   rotulo-tipo: "DE ASSUNTOS",
   entradas-ver: entradas-ver,
   entradas-ver-tambem: entradas-ver-tambem,
-  num-colunas: 2,
+  colunas: 2,
   cabecalhos-letras: true,
 )
 
@@ -1815,6 +1919,48 @@ meu-tcc/
 // ...
 ```
 
+= Aliases (nomes curtos)
+
+Todas as funções públicas do ABNTyp possuem aliases curtos equivalentes. Use qualquer uma das formas --- ambas produzem o mesmo resultado.
+
+=== Citações e texto (quotes.typ)
+
+- `citacao-curta` → `ccurta`
+- `citacao-longa` → `clonga`
+- `interpolacao` → `interp`
+- `grifo-nosso` → `gnosso`
+- `grifo-do-autor` → `gautor`
+
+=== Sistema autor-data (citation.typ)
+
+- `citar-autor` → `cautor`
+- `citar-indireto` → `cindireto`
+- `citar-apud` → `capud`
+- `citar-multiplos` → `cmultiplos`
+- `citar-etal` → `cetal`
+- `citar-entidade` → `centidade`
+- `citar-titulo` → `ctitulo`
+- `referencias-titulo` → `ref-titulo`
+
+=== Sistema numérico (numeric.typ)
+
+- `citar-num` → `cnum`
+- `citar-num-linha` → `cnlinha`
+- `citar-num-multiplos` → `cnmultiplos`
+- `citar-num-apud` → `cnapud`
+- `citacao-num-curta` → `cncurta`
+- `citacao-num-longa` → `cnlonga`
+- `bibliografia-numerica` → `bibnum`
+
+=== Elementos pré-textuais
+
+- `folha-rosto` → `rosto`
+- `ficha-catalografica` → `ficha`
+- `dedicatoria` → `dedica`
+- `agradecimentos` → `agradece`
+- `lista-siglas` → `siglas`
+- `lista-simbolos` → `simbolos`
+
 = Perguntas Frequentes
 
 == Como mudar a fonte para Arial?
@@ -1893,6 +2039,30 @@ O pacote usa um arquivo CSL baseado nas normas NBR 6023:2018 e NBR 10520:2023.
 Para casos especiais, você pode usar as funções de formatação manual (`ref-livro`, `ref-artigo`, `ref-online`)
 
 = Changelog
+
+== Versão 0.1.1 (Março 2026)
+
+- Nova função `dados()` para metadados centralizados
+  - Armazena título, autor, instituição, etc. em state compartilhado
+  - Elementos pré-textuais (`capa()`, `folha-rosto()`, `resumo()`, etc.) leem automaticamente do state
+  - Aceita uso via `#show: dados.with(...)` ou chamada direta
+  - Valida parâmetros desconhecidos com `panic()`
+  - Configura metadados do PDF automaticamente
+- Novo módulo `setup.typ` com `with-abnt-setup()` (interno)
+  - Configuração unificada de página, fonte, parágrafos, headings, listas e rodapé
+  - Elimina ~720 linhas de duplicação entre 6 templates
+- Citações diretas (`citacao-curta`, `citacao-longa`): parâmetros `autor`, `ano`, `pagina` agora todos nomeados e opcionais
+  - Permite uso sem referência: `#citacao-curta()[texto]`
+  - Aspas tipográficas \u{201C}...\u{201D} (eram ASCII)
+- `resumo()` e `resumo-en()` leem `palavras-chave` do state quando não passadas explicitamente
+- `capa()` e `folha-rosto()` usam `_resolve()` para ler do state; título+subtítulo via `_render-titulo()`
+- `_str-safe()` aceita tipo `content` (retorna diretamente em vez de `repr()`)
+- Lombada (`spine.typ`): helper `_to-str()` e variáveis `ano-str`/`vol-str` eliminam duplicação
+- Índice (`index.typ`): `num-colunas` renomeado para `colunas`; `from`/`to` renomeados para `de`/`para`
+- `footnote-text` e `caption-text` são aliases de `small-text` (sem duplicação)
+- Sumário (`toc.typ`): show rules extraídas em `_abnt-outline-rules()`
+- `abntcc()` simplificado: recebe apenas `fonte` e `arquivo-bibliografia`
+- Dependência `touying` restaurada em `typst.toml`
 
 == Versão 0.5.0 (Fevereiro 2026)
 

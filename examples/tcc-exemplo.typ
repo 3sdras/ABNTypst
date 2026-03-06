@@ -43,20 +43,16 @@
 
 
 // ----------------------------------------------------------------------------
-// APLICANDO O TEMPLATE
+// DADOS DO TRABALHO
 // ----------------------------------------------------------------------------
 //
-// #show: abntcc.with(...) aplica o template ao documento inteiro.
-// Isso configura automaticamente:
-//   - Fonte (Times New Roman ou Arial)
-//   - Margens (3cm superior/esquerda, 2cm inferior/direita)
-//   - Espaçamento entre linhas (1,5)
-//   - Recuo de parágrafo (1,25cm)
-//   - Formatação de títulos conforme NBR 6024
+// #show: dados.with(...) define os metadados do trabalho.
+// Título, autor, instituição, etc. são definidos aqui UMA VEZ.
+// Os elementos (capa, folha de rosto, resumo) leem automaticamente.
 //
 // MODIFIQUE os valores abaixo com seus dados reais.
 
-#show: abntcc.with(
+#show: dados.with(
   // --- Dados básicos do trabalho ---
   titulo: "Uma proposta de pacote para normas ABNT em Typst",
   // DICA: Se não tiver subtítulo, remova ou comente a linha abaixo
@@ -76,69 +72,7 @@
   local: "Jataí",
   ano: 2026,
 
-  // --- Orientação ---
-  orientador: "Prof. Dr. Esdras Teixeira Costa",
-  // DICA: Se tiver coorientador, descomente:
-  // coorientador: "Prof. Dr. Nome do Coorientador",
-
-  // --- Fonte ---
-  // Opções: "Times New Roman" (padrão) ou "Arial"
-  fonte: "Times New Roman",
-
-  // --- Bibliografia automática (opcional) ---
-  // Se você tiver um arquivo .bib com suas referências:
-  // arquivo-bibliografia: "referencias.bib",
-  // O CSL ABNT será aplicado automaticamente.
-)
-
-
-// ============================================================================
-// PARTE 2: CAPA E FOLHA DE ROSTO
-// ============================================================================
-//
-// A capa e a folha de rosto são elementos obrigatórios (NBR 14724:2024).
-// Elas contêm informações essenciais sobre o trabalho.
-
-// ----------------------------------------------------------------------------
-// CAPA
-// ----------------------------------------------------------------------------
-// Elementos obrigatórios da capa:
-// - Nome da instituição (MAIÚSCULAS, centralizado)
-// - Nome do autor (centralizado)
-// - Título do trabalho (centralizado, negrito)
-// - Subtítulo, se houver (precedido de dois-pontos)
-// - Local (cidade)
-// - Ano de depósito
-
-#capa(
-  instituicao: "Universidade Federal de Jataí",
-  faculdade: "Instituto de Ciências Exatas e Tecnológicas",
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-  local: "Jataí",
-  ano: 2026,
-)
-
-
-// ----------------------------------------------------------------------------
-// FOLHA DE ROSTO
-// ----------------------------------------------------------------------------
-// A folha de rosto contém os mesmos elementos da capa, MAIS:
-// - Natureza do trabalho (tipo, objetivo, nome da instituição)
-// - Nome do orientador (e coorientador, se houver)
-//
-// IMPORTANTE: A "nature" (natureza) varia conforme o tipo de trabalho.
-
-#folha-rosto(
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-
-  // -----------------------------------------------------------------------
-  // NATUREZA DO TRABALHO - Escolha e adapte conforme seu caso:
-  // -----------------------------------------------------------------------
-
+  // --- Natureza do trabalho ---
   // Para DISSERTAÇÃO de mestrado:
   natureza: "Dissertação apresentada ao PROFMAT - Programa de Mestrado Profissional em Rede em Matemática do Instituto de Ciências Exatas e Tecnológicas da Universidade Federal de Jataí",
   objetivo: "como requisito parcial para obtenção do título de Mestre.",
@@ -151,13 +85,50 @@
   // natureza: "Tese apresentada ao Programa de Pós-Graduação em Matemática da Universidade Federal de Jataí",
   // objetivo: "como requisito parcial para obtenção do título de Doutor em Matemática.",
 
-  // -----------------------------------------------------------------------
-
+  // --- Orientação ---
   orientador: "Prof. Dr. Esdras Teixeira Costa",
-  // coorientador: "Prof. Dr. Nome do Coorientador",  // Se houver
-  local: "Jataí",
-  ano: 2026,
+  // DICA: Se tiver coorientador, descomente:
+  // coorientador: "Prof. Dr. Nome do Coorientador",
+
+  // --- Palavras-chave ---
+  palavras-chave: ("Palavra-chave 1", "Palavra-chave 2", "Palavra-chave 3", "Palavra-chave 4"),
+  palavras-chave-en: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4"),
 )
+
+// ----------------------------------------------------------------------------
+// FORMATAÇÃO ABNT
+// ----------------------------------------------------------------------------
+//
+// #show: abntcc.with(...) aplica a formatação ABNT ao documento:
+//   - Fonte (Times New Roman ou Arial), margens, espaçamento, headings, etc.
+//
+// Os dados do trabalho já foram definidos acima em dados().
+
+#show: abntcc.with(
+  // Opções: "Times New Roman" (padrão) ou "Arial"
+  fonte: "Times New Roman",
+
+  // Bibliografia automática (opcional):
+  // Se você tiver um arquivo .bib com suas referências:
+  // arquivo-bibliografia: "referencias.bib",
+)
+
+
+// ============================================================================
+// PARTE 2: CAPA E FOLHA DE ROSTO
+// ============================================================================
+//
+// A capa e a folha de rosto são elementos obrigatórios (NBR 14724:2024).
+// Elas contêm informações essenciais sobre o trabalho.
+
+// ----------------------------------------------------------------------------
+// CAPA E FOLHA DE ROSTO
+// ----------------------------------------------------------------------------
+// Todos os dados vêm automaticamente do dados() acima.
+// Não é preciso repetir título, autor, instituição, etc.
+
+#capa()
+#folha-rosto()
 
 
 // ============================================================================
@@ -271,9 +242,8 @@
 // RESUMO (em português)
 // ----------------------------------------------------------------------------
 
-#resumo(
-  palavras-chave: ("Palavra-chave 1", "Palavra-chave 2", "Palavra-chave 3", "Palavra-chave 4"),
-)[
+// Palavras-chave vêm automaticamente do dados()
+#resumo[
   // DICA: Escreva em parágrafo único, sem recuo, texto corrido.
   // Evite citações, fórmulas e abreviaturas no resumo.
 
@@ -287,9 +257,7 @@
 // O abstract é a tradução do resumo para inglês (obrigatório).
 // Se seu programa exigir resumo em outra língua, use a função foreign-abstract.
 
-#resumo-en(
-  palavras-chave: ("Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4"),
-)[
+#resumo-en[
   The formatting of academic documents in Brazil follows the standards of the Brazilian Association of Technical Standards (ABNT), which establishes guidelines for the presentation of works such as undergraduate theses, master's dissertations, and doctoral theses. This work aims to present the development of a system to automate the formatting of academic documents according to ABNT standards, using the Typst typesetting language. The methodology adopted consisted of a detailed analysis of current standards, identification of formatting requirements, and implementation of specific templates and functions for each document element. The results obtained demonstrate that it is possible to produce correctly formatted academic documents more simply and efficiently than traditional solutions based on LaTeX or conventional word processors. It is concluded that Typst, combined with the developed package, offers a viable and modern alternative for the production of academic works in Brazil, reducing the time spent on formatting and allowing authors to focus their efforts on content.
 ]
 
@@ -471,10 +439,10 @@ A padronização de documentos científicos surgiu da necessidade de facilitar a
 // ----------------------------------------------------------------------------
 // Use aspas duplas e indique autor, ano e página.
 
-De acordo com Santos (2022, p. 45), #citacao-curta("as normas técnicas são instrumentos fundamentais para a qualidade e a confiabilidade da produção científica").
+De acordo com Santos (2022, p. 45), #citacao-curta(autor: "Santos", ano: "2022")[as normas técnicas são instrumentos fundamentais para a qualidade e a confiabilidade da produção científica].
 
-// Outra forma (autor entre parênteses):
-A literatura especializada destaca que #citacao-curta("as normas técnicas são instrumentos fundamentais para a qualidade e a confiabilidade da produção científica", autor: "SANTOS", ano: "2022", pagina: "45").
+// Outra forma (com página):
+A literatura especializada destaca que #citacao-curta(autor: "Santos", ano: "2022", pagina: "45")[as normas técnicas são instrumentos fundamentais para a qualidade e a confiabilidade da produção científica].
 
 
 // ----------------------------------------------------------------------------
@@ -484,7 +452,7 @@ A literatura especializada destaca que #citacao-curta("as normas técnicas são 
 
 A importância da normalização para a comunicação científica é amplamente reconhecida na literatura:
 
-#citacao-longa(autor: "SILVA", ano: "2023", pagina: "42")[
+#citacao-longa(autor: "Silva", ano: "2023", pagina: "42")[
   A formatação adequada dos trabalhos acadêmicos é essencial para a clareza e a credibilidade da comunicação científica. As normas técnicas estabelecem padrões que facilitam a leitura e a compreensão dos textos, além de permitir a verificação das fontes consultadas. Sem essa padronização, cada instituição ou publicação adotaria critérios próprios, dificultando o intercâmbio de conhecimentos entre diferentes comunidades acadêmicas.
 ]
 
@@ -511,7 +479,7 @@ Essa perspectiva histórica demonstra que a preocupação com normas técnicas n
 
 === Elementos Especiais em Citações
 
-Quando necessário suprimir parte de uma citação, use reticências entre colchetes [...]. Por exemplo: #citacao-curta("A normalização [...] é essencial para a ciência", autor: "SILVA", ano: "2023", pagina: "50").
+Quando necessário suprimir parte de uma citação, use reticências entre colchetes [...]. Por exemplo: #citacao-curta(autor: "Silva", ano: "2023", pagina: "50")[A normalização [...] é essencial para a ciência].
 
 // DICA: O pacote oferece funções auxiliares:
 // #supressao - produz [...]

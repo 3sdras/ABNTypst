@@ -20,7 +20,7 @@ O objetivo aqui é adaptar o projeto abnTeX2 para o caso do Typst, para servir c
 ### Via Typst Universe (recomendado)
 
 ```typst
-#import "@preview/abntyp:0.1.0": *
+#import "@preview/abntyp:0.1.1": *
 ```
 
 ### Via Clone Local
@@ -118,9 +118,10 @@ O ABNTyp implementa as seguintes normas ABNT (versões atualizadas):
 ### Trabalho Acadêmico (Tese/Dissertação/TCC)
 
 ```typst
-#import "@preview/abntyp:0.1.0": *
+#import "@preview/abntyp:0.1.1": *
 
-#show: abntcc.with(
+// Metadados do trabalho — definidos uma única vez
+#show: dados.with(
   titulo: "Uma proposta de pacote para normas ABNT em Typst",
   subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
   autor: "Cláudio Código",
@@ -129,33 +130,24 @@ O ABNTyp implementa as seguintes normas ABNT (versões atualizadas):
   programa: "PROFMAT - Programa de Mestrado Profissional em Rede em Matemática",
   local: "Jataí",
   ano: 2026,
-  orientador: "Prof. Dr. Esdras Teixeira Costa",
-  arquivo-bibliografia: "referencias.bib",
-)
-
-// Elementos pré-textuais
-#capa(
-  instituicao: "Universidade Federal de Jataí",
-  faculdade: "Instituto de Ciências Exatas e Tecnológicas",
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
-  local: "Jataí",
-  ano: 2026,
-)
-#folha-rosto(
-  autor: "Cláudio Código",
-  titulo: "Uma proposta de pacote para normas ABNT em Typst",
-  subtitulo: [Material didático para a disciplina \ Software Livre para Edição de Textos Matemáticos],
   natureza: "Dissertação",
   objetivo: "Obtenção do título de Mestre",
-  instituicao: "Universidade Federal de Jataí",
   orientador: "Prof. Dr. Esdras Teixeira Costa",
-  local: "Jataí",
-  ano: 2026,
+  palavras-chave: ("ABNT", "Typst", "formatação"),
+  palavras-chave-en: ("ABNT", "Typst", "formatting"),
 )
-#resumo(palavras-chave: ("ABNT", "Typst", "formatação"))[Texto do resumo...]
-#resumo-en(palavras-chave: ("ABNT", "Typst", "formatting"))[Abstract text...]
+
+// Formatação ABNT (fonte, margens, headings, etc.)
+#show: abntcc.with(
+  fonte: "Times New Roman",
+  // arquivo-bibliografia: "referencias.bib",
+)
+
+// Elementos pré-textuais — dados vêm automaticamente
+#capa()
+#folha-rosto()
+#resumo[Texto do resumo...]
+#resumo-en[Abstract text...]
 #sumario()
 
 // Elementos textuais
@@ -171,7 +163,7 @@ Texto do desenvolvimento...
 ### Artigo Científico
 
 ```typst
-#import "@preview/abntyp:0.1.0": *
+#import "@preview/abntyp:0.1.1": *
 
 #show: artigo.with(
   titulo: "Título do Artigo",
@@ -200,18 +192,21 @@ O ABNTyp suporta os dois sistemas de chamada permitidos pela NBR 10520:2023:
 
 ```typst
 // Citação entre parênteses
-#citar("Silva", "2023", page: "45")  // (SILVA, 2023, p. 45)
+#citar("Silva", 2023, pagina: 45)  // (SILVA, 2023, p. 45)
 
 // Autor no texto
-#citar-autor("Silva", "2023")  // Silva (2023)
+#citar-autor("Silva", 2023)  // Silva (2023)
 
-// Citação direta curta
-#citacao-curta("Silva", "2023", page: "45")[Texto da citação]
+// Citação direta curta (posicional ou nomeada)
+#citacao-curta("Silva", 2023, 45)[Texto da citação]
 
-// Citação direta longa
-#citacao-longa("Silva", "2023", page: "45-46")[
+// Citação direta longa (recuo de 4cm, fonte 10pt)
+#citacao-longa("Silva", 2023, "45-46")[
   Texto longo da citação com mais de três linhas...
 ]
+
+// Citação sem referência (apenas aspas)
+#citacao-curta()[sic transit gloria mundi]
 ```
 
 ### Sistema Numérico
@@ -219,11 +214,11 @@ O ABNTyp suporta os dois sistemas de chamada permitidos pela NBR 10520:2023:
 O sistema numérico foi implementado inspirado no `abntex2-num.bst` do abnTeX2.
 
 ```typst
-#import "@preview/abntyp:0.1.0": *
+#import "@preview/abntyp:0.1.1": *
 
 #show: citacao-num-config
 
-O resultado foi positivo #citar-num("silva2023", page: "45").
+O resultado foi positivo #citar-num("silva2023", pagina: 45).
 Outros autores #citar-num-multiplos(("santos2022", "costa2021")) confirmam.
 
 #bibliografia-numerica((
@@ -233,6 +228,40 @@ Outros autores #citar-num-multiplos(("santos2022", "costa2021")) confirmam.
 ```
 
 **Nota:** Conforme NBR 10520:2023, o sistema numérico NÃO pode ser usado quando houver notas de rodapé.
+
+---
+
+## Aliases (nomes curtos)
+
+Todas as funções principais possuem aliases curtos. Ambas as formas são equivalentes — use a que preferir:
+
+| Função completa | Alias |
+| --- | --- |
+| `citacao-curta` | `ccurta` |
+| `citacao-longa` | `clonga` |
+| `citar-autor` | `cautor` |
+| `citar-indireto` | `cindireto` |
+| `citar-apud` | `capud` |
+| `citar-multiplos` | `cmultiplos` |
+| `citar-etal` | `cetal` |
+| `citar-entidade` | `centidade` |
+| `citar-titulo` | `ctitulo` |
+| `folha-rosto` | `rosto` |
+| `ficha-catalografica` | `ficha` |
+| `dedicatoria` | `dedica` |
+| `agradecimentos` | `agradece` |
+| `lista-siglas` | `siglas` |
+| `lista-simbolos` | `simbolos` |
+| `interpolacao` | `interp` |
+| `grifo-nosso` | `gnosso` |
+| `grifo-do-autor` | `gautor` |
+| `citar-num` | `cnum` |
+| `citar-num-linha` | `cnlinha` |
+| `citar-num-multiplos` | `cnmultiplos` |
+| `citar-num-apud` | `cnapud` |
+| `citacao-num-curta` | `cncurta` |
+| `citacao-num-longa` | `cnlonga` |
+| `bibliografia-numerica` | `bibnum` |
 
 ---
 
@@ -254,7 +283,8 @@ abntyp/
 │   │   ├── dates.typ       # Formatação de datas (NBR 5892)
 │   │   ├── identifiers.typ # ISBN/ISSN (NBR ISO 2108, NBR 10525)
 │   │   ├── sorting.typ     # Ordenação alfabética (NBR 6033)
-│   │   └── proofreading.typ# Marcas de revisão (NBR 6025)
+│   │   ├── proofreading.typ# Marcas de revisão (NBR 6025)
+│   │   └── metadata.typ    # Metadados compartilhados (dados())
 │   │
 │   ├── elements/           # Elementos estruturais
 │   │   ├── cover.typ       # Capa

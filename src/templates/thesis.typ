@@ -1,5 +1,6 @@
 // Template para tese/dissertação/TCC conforme NBR 14724:2024
 
+#import "../core/setup.typ": with-abnt-setup
 #import "../core/page.typ": *
 #import "../core/fonts.typ": *
 #import "../core/spacing.typ": *
@@ -10,159 +11,26 @@
 #import "../elements/toc.typ": *
 #import "../references/bibliography.typ": *
 
-/// Template principal para trabalhos acadêmicos (tese, dissertação, TCC)
+/// Template de formatação para trabalhos acadêmicos (tese, dissertação, TCC)
+///
+/// Configura página, fonte, parágrafos, headings e demais elementos visuais
+/// conforme NBR 14724:2024. Os metadados do trabalho (título, autor, etc.)
+/// devem ser definidos via dados().
 ///
 /// Parâmetros:
-/// - titulo: título do trabalho
-/// - subtitulo: subtítulo (opcional)
-/// - autor: nome do autor
-/// - instituicao: nome da instituição
-/// - faculdade: faculdade/unidade
-/// - programa: programa de pós-graduação
-/// - local: cidade
-/// - ano: ano de depósito
-/// - natureza: natureza do trabalho
-/// - objetivo: objetivo (ex: "Dissertação apresentada ao Programa...")
-/// - area: área de concentração
-/// - orientador: orientador
-/// - coorientador: coorientador (opcional)
-/// - palavras-chave: palavras-chave em português
-/// - palavras-chave-en: keywords em inglês
 /// - fonte: fonte a usar ("Times New Roman" ou "Arial")
 /// - arquivo-bibliografia: caminho para arquivo .bib (opcional)
 /// - titulo-bibliografia: título da seção de referências (padrão: "REFERÊNCIAS")
 #let abntcc(
-  titulo: "",
-  subtitulo: none,
-  autor: "",
-  instituicao: "",
-  faculdade: none,
-  programa: none,
-  local: "",
-  ano: datetime.today().year(),
-  natureza: none,
-  objetivo: none,
-  area: none,
-  orientador: none,
-  coorientador: none,
-  palavras-chave: (),
-  palavras-chave-en: (),
   fonte: "Times New Roman",
   arquivo-bibliografia: none,
   titulo-bibliografia: "REFERÊNCIAS",
   body,
 ) = {
-  // Configuração do documento
-  set document(
-    title: titulo,
-    author: autor,
-  )
+  show: with-abnt-setup.with(fonte: fonte)
 
-  // Configuração de página
-  set page(
-    paper: "a4",
-    margin: (
-      top: 3cm,
-      bottom: 2cm,
-      left: 3cm,
-      right: 2cm,
-    ),
-  )
-
-  // Configuração de fonte
-  set text(
-    font: fonte,
-    size: 12pt,
-    lang: "pt",
-    region: "BR",
-  )
-
-  // Configuração de parágrafo
-  set par(
-    leading: 1.5em * 0.65,
-    justify: true,
-    first-line-indent: (amount: 1.25cm, all: true),
-  )
-
-  set list(indent: 2em, body-indent: 0.5em)
-  set enum(indent: 2em, body-indent: 0.5em)
-  set terms(indent: 0em, hanging-indent: 2em, separator: [: ])
-
-  // Configuração de headings
-  set heading(numbering: "1.1")
-
-  show heading.where(level: 1): it => {
-    pagebreak(weak: true)
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 2): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #upper(it.body)
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 3): it => {
-    v(1.5em)
-    text(weight: "bold", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 4): it => {
-    v(1.5em)
-    text(weight: "regular", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  show heading.where(level: 5): it => {
-    v(1.5em)
-    text(weight: "regular", style: "italic", size: 12pt)[
-      #if it.numbering != none {
-        counter(heading).display()
-        h(0.5em)
-      }
-      #it.body
-    ]
-    v(1.5em)
-  }
-
-  // Excluir indentação de containers que não devem ser indentados
-  show heading: set par(first-line-indent: 0pt)
-  show figure: set par(first-line-indent: 0pt)
-  show raw.where(block: true): set par(first-line-indent: 0pt)
-  show outline: set par(first-line-indent: 0pt)
-  show terms: set par(first-line-indent: 0pt)
-
-  // Configuração de notas de rodapé
-  set footnote.entry(
-    separator: line(length: 5cm, stroke: 0.5pt),
-  )
+  // Nota: metadados do PDF (title, author) são definidos por dados().
+  // Se o usuário não usar dados(), o PDF ficará sem metadados.
 
   // Conteúdo
   body
@@ -217,15 +85,19 @@
 }
 
 /// Epígrafe
-#let epigrafe(quote, autor) = {
+#let epigrafe(citacao, autor) = {
   set page(numbering: none)
   v(1fr)
   align(right)[
     #box(width: 50%)[
       #set par(first-line-indent: 0pt)
-      "#quote" \
+      \u{201C}#citacao\u{201D} \
       [(#autor)]
     ]
   ]
   pagebreak()
 }
+
+// Aliases curtos
+#let dedica = dedicatoria
+#let agradece = agradecimentos
